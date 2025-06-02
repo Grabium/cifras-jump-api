@@ -2,21 +2,8 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-class Tom
+class Tom extends AcordeComposicao
 {
-    public string $sinal;
-
-    /**
-   * 
-   * @throws \TypeError
-   * 
-   *******/
-    public function __construct(mixed $key = 'NaoTestado')
-    {
-        $this->validate($key);
-        $this->sinal = $key;
-    }
-  
    /**
    * 
    * @throws \TypeError
@@ -24,13 +11,10 @@ class Tom
    *******/
     public function validate(mixed $key)
     {
-        $regex = '^[ABCDEFG][#b]?';
+        $regex = '^([ABCDEFG][#b]?|NaoTestado)$';
 
-        if(!preg_match('/'.$regex.'/', $key, $tom) && $key != 'NaoTestado'){
+        if(!preg_match('/'.$regex.'/', $key)){
             throw new \TypeError('Tonalidade inválida para o acorde: '.$key.'.');
         }
-        var_dump($tom[0]);
-
-        //$this->sinal = $tom[0];
     }
 }

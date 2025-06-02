@@ -2,22 +2,8 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-class Enarmonia implements AcordeComposicaoInterface
-{
-    public string $sinal;
-
-
-    /**
-   * 
-   * @throws \TypeError
-   * 
-   *******/
-    public function __construct(mixed $key = 'NaoTestado')
-    {
-        $this->validate($key);
-        $this->sinal = $key;
-    }
-  
+class Enarmonia extends AcordeComposicao
+{  
    /**
    * 
    * @throws \TypeError

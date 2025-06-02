@@ -2,22 +2,8 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-class Quinta
+class Quinta extends AcordeComposicao
 {
-    
-    public string $sinal;
-
-    /**
-     * 
-     * @throws \TypeError
-     * 
-     *******/  
-    public function __construct(mixed $key = 'NaoTestado')
-    {
-        $this->validate($key);
-        $this->sinal = $key;
-    }
-
     /**
      * 
      * @throws \TypeError

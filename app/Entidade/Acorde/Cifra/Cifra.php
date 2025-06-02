@@ -12,6 +12,8 @@ class Cifra
     public function __construct(string $sinal)
     {
         $this->sinal  = $sinal;
+        $this->fundamental = new Tom();
+        $this->inversao = new Tom();
     }
 
 }
