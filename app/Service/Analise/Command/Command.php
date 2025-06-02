@@ -9,20 +9,22 @@ abstract class Command
   
   public int $key;
   public Acorde $acorde;
+  public string $caractere;
 
   public function __construct(int $key, Acorde $acorde)
   {
     $this->key = $key;
     $this->acorde = $acorde;
+    $this->setCaractere($key);
   }
 
-  public function getCaractere($key = null)
+  public function setCaractere(int $key)
   {
     if($key == null){
       $key = $this->key;
     }
     
-    return $this->acorde->cifraOriginal->sinal[$key];
+    $this-> caractere = $this->acorde->cifraOriginal->sinal[$key];
   }
 
   abstract public function analisar();
