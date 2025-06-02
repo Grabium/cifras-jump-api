@@ -19,6 +19,5 @@ class PreparacaoDadosController extends Controller
     {
         $matches = $this->getMatches($text);
         CifrasQueue::setAcordes($matches);
-        var_dump(CifrasQueue::getAcordes());
     }    
 }

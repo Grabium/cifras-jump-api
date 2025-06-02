@@ -2,13 +2,17 @@
 
 namespace App\Service\Analise\Command;
 
-class Bemol
+class Bemol extends Command
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
+    public function analisar()
     {
-        //
+        if($this->key != 2){
+            //processar intervalo
+        }
+
+        //match na classe TomFundamental
+        $this->acorde->enarmonia->set($this->caractere);
+        $fundamental = $this->acorde->cifraOriginal->fundamental->get();
+        $this->acorde->cifraOriginal->fundamental->set($fundamental.$this->caractere);
     }
 }
