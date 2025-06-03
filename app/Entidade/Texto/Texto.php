@@ -9,6 +9,6 @@ class Texto
     
     public function __construct(string $texto)
     {
-        $this->textoOriginal = $texto.' ';
+        $this->textoOriginal = ' '.$texto.' ';
     }
 }
