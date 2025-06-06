@@ -20,6 +20,7 @@ class CommandList
             ' '=>'Space',
             '#'=>'Sustenido',
             'b'=>'Bemol',
+            'm'=>'Menor'
         ];
     }
 }

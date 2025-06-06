@@ -11,7 +11,7 @@ class Enarmonia extends AcordeComposicao
    *******/
     public function validate(mixed $key)
     {
-        if($key !== '#' && $key !== 'b' && $key != 'NaoTestado'){
+        if($key !== '#' && $key !== 'b' && $key != 'natural' && $key != 'NaoTestado'){
             throw new \TypeError('Enarmonia apenas aceita [#] ou [b] como valor.');
         }
     }

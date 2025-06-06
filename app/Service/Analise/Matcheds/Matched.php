@@ -20,5 +20,5 @@ abstract class Matched
         $this->caractere = $this->acorde->cifraOriginal->sinal[$key];
     }
 
-    abstract public function handle();
+    abstract public function handle(mixed $valor);
 }

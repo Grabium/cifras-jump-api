@@ -45,7 +45,7 @@ class Analise
       
       //caso Command não exista:
       if(!array_key_exists($caractere, $this->listaCommand)){
-        (new Negativo($indice, $acorde, $key))->handle();
+        (new Negativo($indice, $acorde, $key))->handle('');
         return;
       }
 

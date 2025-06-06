@@ -1,6 +1,8 @@
 <?php
 namespace App\Service\Analise\Command;
 
+use App\Service\Analise\Matcheds\TomFundamental;
+
 class Tom extends Command
 {
     public function analisar()
@@ -11,5 +13,6 @@ class Tom extends Command
 
         //match na classe TomFundamental
         $this->acorde->cifraOriginal->fundamental->set($this->caractere);
+        (new TomFundamental($this->indice, $this->acorde, $this->key))->handle('');
     }
 }

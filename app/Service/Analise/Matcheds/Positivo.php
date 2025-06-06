@@ -6,7 +6,7 @@ use App\Entidade\Aprovados\AprovadosQueue;
 
 class Positivo extends Matched
 {
-    public function handle(string $caractere = '')
+    public function handle(mixed $valor = '')
     {
         if($this->acorde->terca->get() == 'NaoTestado'){
             $this->acorde->terca->set('maior');

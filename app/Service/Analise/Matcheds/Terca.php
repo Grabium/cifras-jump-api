@@ -2,13 +2,10 @@
 
 namespace App\Service\Analise\Matcheds;
 
-class Terca
+class Terca extends Matched
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
+    public function handle(mixed $valor)
     {
-        //
+        $this->acorde->terca->set($valor);
     }
 }
