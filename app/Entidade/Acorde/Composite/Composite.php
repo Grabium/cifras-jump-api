@@ -2,7 +2,7 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-abstract class AcordeComposicao
+abstract class Composite
 {
 
     abstract protected function validate(mixed $key);

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\Analise\Matcheds;
+namespace App\Service\Analise\Matched;
 
-class Enarmonia extends Matched
+class EnarmoniaMatched extends Matched
 {
     public function handle(mixed $valor)
     {

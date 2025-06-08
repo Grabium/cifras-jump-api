@@ -2,19 +2,19 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-class IntervaloSimples extends Intervalo
+class SetimaComposite extends Composite
 {
-    /**
+   /**
    * 
    * @throws \TypeError
    * 
    *******/
     public function validate(mixed $key)
     {
-        $regex = '^([#b]?[234567]|NaoTestado)$';
+        $regex = '^(diminuta|menor|maior|NaoTestado)$';
 
         if(!preg_match('/'.$regex.'/', $key)){
-            throw new \TypeError('Intervalo simples inválido: '.$key.'.');
+            throw new \TypeError('Sinal de Sétima inválido: '.$key.'.');
         }
     }
 }

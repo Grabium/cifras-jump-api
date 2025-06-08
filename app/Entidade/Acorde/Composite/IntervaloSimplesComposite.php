@@ -2,19 +2,19 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-class Tom extends AcordeComposicao
+class IntervaloSimplesComposite extends IntervaloComposite
 {
-   /**
+    /**
    * 
    * @throws \TypeError
    * 
    *******/
     public function validate(mixed $key)
     {
-        $regex = '^([ABCDEFG][#b]?|NaoTestado)$';
+        $regex = '^([#b]?[234567]|NaoTestado)$';
 
         if(!preg_match('/'.$regex.'/', $key)){
-            throw new \TypeError('Tonalidade inválida para o acorde: '.$key.'.');
+            throw new \TypeError('Intervalo simples inválido: '.$key.'.');
         }
     }
 }

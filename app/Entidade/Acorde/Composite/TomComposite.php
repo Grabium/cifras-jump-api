@@ -2,7 +2,7 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-class Setima extends AcordeComposicao
+class TomComposite extends Composite
 {
    /**
    * 
@@ -11,10 +11,10 @@ class Setima extends AcordeComposicao
    *******/
     public function validate(mixed $key)
     {
-        $regex = '^(diminuta|menor|maior|NaoTestado)$';
+        $regex = '^([ABCDEFG][#b]?|NaoTestado)$';
 
         if(!preg_match('/'.$regex.'/', $key)){
-            throw new \TypeError('Sinal de Sétima inválido: '.$key.'.');
+            throw new \TypeError('Tonalidade inválida para o acorde: '.$key.'.');
         }
     }
 }

@@ -19,5 +19,9 @@ abstract class Command
     $this-> caractere = $this->acorde->cifraOriginal->sinal[$key];
   }
 
-  abstract public function analisar();
+  /*****
+   * @param void
+   * @return bool - true (chama o próximo acode). false (continua analisando o acorde).
+   */
+  abstract public function analisar(): bool;
 }

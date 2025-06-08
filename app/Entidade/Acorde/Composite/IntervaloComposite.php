@@ -2,7 +2,7 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-abstract class Intervalo extends AcordeComposicao
+abstract class IntervaloComposite extends Composite
 {
     abstract public function validate(mixed $key);
 

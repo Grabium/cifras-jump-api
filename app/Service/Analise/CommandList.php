@@ -10,17 +10,17 @@ class CommandList
     public function get()
     {
         return[
-            'A'=>'Tom',
-            'B'=>'Tom',
-            'C'=>'Tom',
-            'D'=>'Tom',
-            'E'=>'Tom',
-            'F'=>'Tom',
-            'G'=>'Tom',
-            ' '=>'Space',
-            '#'=>'Sustenido',
-            'b'=>'Bemol',
-            'm'=>'Menor'
+            'A'=>'TomCommand',
+            'B'=>'TomCommand',
+            'C'=>'TomCommand',
+            'D'=>'TomCommand',
+            'E'=>'TomCommand',
+            'F'=>'TomCommand',
+            'G'=>'TomCommand',
+            ' '=>'SpaceCommand',
+            '#'=>'SustenidoCommand',
+            'b'=>'BemolCommand',
+            'm'=>'MenorCommand'
         ];
     }
 }

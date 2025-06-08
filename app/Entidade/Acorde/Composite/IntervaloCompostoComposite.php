@@ -2,7 +2,7 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-class IntervaloComposto extends Intervalo
+class IntervaloCompostoComposite extends IntervaloComposite
 {
     /**
    * 

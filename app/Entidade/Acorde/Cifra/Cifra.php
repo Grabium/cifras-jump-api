@@ -1,19 +1,19 @@
 <?php
 namespace App\Entidade\Acorde\Cifra;
 
-use App\Entidade\Acorde\Composite\Tom;
+use App\Entidade\Acorde\Composite\TomComposite;
 
 class Cifra
 {
     public string $sinal;
-    public Tom $fundamental;
-    public Tom $inversao;
+    public TomComposite $fundamental;
+    public TomComposite $inversao;
 
     public function __construct(string $sinal)
     {
         $this->sinal  = $sinal;
-        $this->fundamental = new Tom();
-        $this->inversao = new Tom();
+        $this->fundamental = new TomComposite();
+        $this->inversao = new TomComposite();
     }
 
 }

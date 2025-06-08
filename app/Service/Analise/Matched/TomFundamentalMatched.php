@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\Analise\Matcheds;
+namespace App\Service\Analise\Matched;
 
-class TomFundamental extends Matched
+class TomFundamentalMatched extends Matched
 {
     public function handle(mixed $valor)
     {

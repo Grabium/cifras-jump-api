@@ -2,13 +2,17 @@
 
 namespace App\Service\Analise\Command;
 
-use App\Service\Analise\Matcheds\Terca;
-use App\Service\Analise\Matcheds\Negativo;
-use App\Service\Analise\Matcheds\Enarmonia;
+use App\Service\Analise\Matched\TercaMatched;
+use App\Service\Analise\Matched\NegativoMatched;
+use App\Service\Analise\Matched\EnarmoniaMatched;
 
-class Menor extends Command
+class MenorCommand extends Command
 {
-    public function analisar()
+    /*****
+   * @param void
+   * @return bool - true (chama o próximo acode). false (continua analisando o acorde).
+   ******/
+    public function analisar(): bool
     {
         //echo 'Inicializando Menor'.PHP_EOL;
         $enarmonia = $this->acorde->enarmonia->get();
@@ -28,12 +32,14 @@ class Menor extends Command
             return true;
         }
 
-        (new Terca($this->indice, $this->acorde, $this->key))->handle('menor');
+        (new TercaMatched($this->indice, $this->acorde, $this->key))->handle('menor');
+
+        return false;
     }
 
     private function negar()
     {
-        (new Negativo($this->indice, $this->acorde, $this->key))->handle('');
+        (new NegativoMatched($this->indice, $this->acorde, $this->key))->handle('');
     }
 
     private function falharEmKey1($enarmonia): bool
@@ -42,7 +48,7 @@ class Menor extends Command
             $this->negar();
             return true;
         }elseif($enarmonia == 'NaoTestado'){
-            (new Enarmonia($this->indice, $this->acorde, $this->key))->handle('natural');
+            (new EnarmoniaMatched($this->indice, $this->acorde, $this->key))->handle('natural');
             
         }
 

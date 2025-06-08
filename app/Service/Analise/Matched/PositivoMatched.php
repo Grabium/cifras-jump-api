@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Service\Analise\Matcheds;
+namespace App\Service\Analise\Matched;
 
 use App\Entidade\Aprovados\AprovadosQueue;
 
-class Positivo extends Matched
+class PositivoMatched extends Matched
 {
     public function handle(mixed $valor = '')
     {

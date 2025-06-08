@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\Analise\Matcheds;
+namespace App\Service\Analise\Matched;
 
-class Negativo extends Matched
+class NegativoMatched extends Matched
 {
     public function handle(mixed $valor = null)
     {

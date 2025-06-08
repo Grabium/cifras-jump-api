@@ -2,7 +2,7 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-class Enarmonia extends AcordeComposicao
+class EnarmoniaComposite extends Composite
 {  
    /**
    * 

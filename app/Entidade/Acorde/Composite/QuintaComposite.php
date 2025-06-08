@@ -2,7 +2,7 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-class Quinta extends AcordeComposicao
+class QuintaComposite extends Composite
 {
     /**
      * 

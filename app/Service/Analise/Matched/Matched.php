@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Analise\Matcheds;
+namespace App\Service\Analise\Matched;
 
 use App\Entidade\Acorde\Acorde;
 

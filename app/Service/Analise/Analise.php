@@ -4,10 +4,10 @@ namespace App\Service\Analise;
 
 use App\Entidade\Acorde\Acorde;
 use App\Entidade\Acorde\Cifra\CifrasQueue;
-use App\Service\Analise\Matcheds\Negativo;
+use App\Service\Analise\Matched\NegativoMatched;
 use App\Service\Analise\Command\Command;
 use App\Entidade\Aprovados\AprovadosQueue;
-use App\Service\Analise\Matcheds\Positivo;
+use App\Service\Analise\Matched\PositivoMatched;
 
 class Analise
 {
@@ -25,10 +25,8 @@ class Analise
   {
     foreach(CifrasQueue::getAcordes() as $indice => $acorde){
 
-      $chaveDeAcordeRepetido = array_search($acorde->cifraOriginal->sinal, AprovadosQueue::getSinais());
-      
-      if($chaveDeAcordeRepetido){
-        (new Positivo($indice, AprovadosQueue::$cifrasArpovadas[$chaveDeAcordeRepetido], 0))->handle();
+      $chamarProximoAcorde = $this->verificarAcordesRepetidos($indice, $acorde);
+      if($chamarProximoAcorde){
         continue;
       }
 
@@ -39,20 +37,37 @@ class Analise
     dd(AprovadosQueue::$cifrasArpovadas);
   }
 
-  private function iteradorSinal($indice, Acorde $acorde)
+  private function verificarAcordesRepetidos(int $indice, Acorde $acorde): bool
+  {
+    $chaveDeAcordeRepetido = array_search($acorde->cifraOriginal->sinal, AprovadosQueue::getSinais());
+      
+    if($chaveDeAcordeRepetido){
+      (new PositivoMatched($indice, AprovadosQueue::$cifrasArpovadas[$chaveDeAcordeRepetido], 0))->handle();
+      return true;
+    }
+
+    return false;
+  }
+
+  private function iteradorSinal(int $indice, Acorde $acorde)
   {
     foreach(str_split($acorde->cifraOriginal->sinal) as $key => $caractere){
+    
+      try {
+
+        $nomeComando = $this->namespaceComand.$this->listaCommand[$caractere];
       
-      //caso Command não exista:
-      if(!array_key_exists($caractere, $this->listaCommand)){
-        (new Negativo($indice, $acorde, $key))->handle('');
+      } catch (\Throwable $th) {
+        
+        (new NegativoMatched($indice, $acorde, $key))->handle('');
         return;
+
       }
 
-      $nomeComando = $this->namespaceComand.$this->listaCommand[$caractere];
       $this->command = new $nomeComando($indice, $acorde, $key);
+      $chamarProximoAcorde = $this->command->analisar();
 
-      if($this->command->analisar()){
+      if($chamarProximoAcorde){
         return;
       }
 

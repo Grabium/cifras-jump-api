@@ -2,7 +2,7 @@
 
 namespace App\Entidade\Acorde\Composite;
 
-class Terca extends AcordeComposicao
+class TercaComposite extends Composite
 {
     /**
      * 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\Analise\Matcheds;
+namespace App\Service\Analise\Matched;
 
-class Terca extends Matched
+class TercaMatched extends Matched
 {
     public function handle(mixed $valor)
     {
