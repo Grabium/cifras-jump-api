@@ -2,7 +2,7 @@
 
 namespace App\Service\Analise\Command;
 
-use App\Entidade\Acorde\Acorde;
+use App\Service\Entidade\Acorde\Acorde;
 
 abstract class Command
 {

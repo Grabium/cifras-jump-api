@@ -1,12 +1,12 @@
 <?php
-namespace App\Entidade\Acorde;
+namespace App\Service\Entidade\Acorde;
 
-use App\Entidade\Acorde\Composite\EnarmoniaComposite;
-use App\Entidade\Acorde\Composite\TercaComposite;
-use App\Entidade\Acorde\Composite\IntervaloComposite;
-use App\Entidade\Acorde\Cifra\Cifra;
-use App\Entidade\Acorde\Composite\QuintaComposite;
-use App\Entidade\Acorde\Composite\SetimaComposite;
+use App\Service\Entidade\Acorde\Composite\EnarmoniaComposite;
+use App\Service\Entidade\Acorde\Composite\TercaComposite;
+use App\Service\Entidade\Acorde\Composite\IntervaloComposite;
+use App\Service\Entidade\Acorde\Cifra\Cifra;
+use App\Service\Entidade\Acorde\Composite\QuintaComposite;
+use App\Service\Entidade\Acorde\Composite\SetimaComposite;
 
 class Acorde
 {

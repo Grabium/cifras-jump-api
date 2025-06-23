@@ -2,28 +2,30 @@
 
 namespace App\Service\Analise;
 
-use App\Entidade\Acorde\Acorde;
-use App\Entidade\Acorde\Cifra\CifrasQueue;
-use App\Service\Analise\Matched\NegativoMatched;
+use App\Service\Entidade\Acorde\Acorde;
+use App\Service\Entidade\Acorde\Cifra\CifrasQueue;
 use App\Service\Analise\Command\Command;
-use App\Entidade\Aprovados\AprovadosQueue;
-use App\Service\Analise\Matched\PositivoMatched;
+use App\Service\Entidade\Aprovados\AprovadosQueue;
+use App\Service\Analise\FinalMatch\PositivoFinalMatch;
+use App\Service\Analise\FinalMatch\NegativoFinalMatch;
 
 class Analise
 {
   private Command $command;
+  private array $acordesQueue;
   private array $listaCommand;
   private string $namespaceComand;
 
-  public function __construct()
+  public function __construct(array $acordesQueue)
   {
+    $this->acordesQueue = $acordesQueue;
     $this->listaCommand = new CommandList()->get();
     $this->namespaceComand = 'App\\Service\\Analise\\Command\\';
   }
 
   public function run()
   {
-    foreach(CifrasQueue::getAcordes() as $indice => $acorde){
+    foreach($this->acordesQueue as $indice => $acorde){
 
       $chamarProximoAcorde = $this->verificarAcordesRepetidos($indice, $acorde);
       if($chamarProximoAcorde){
@@ -42,7 +44,7 @@ class Analise
     $chaveDeAcordeRepetido = array_search($acorde->cifraOriginal->sinal, AprovadosQueue::getSinais());
       
     if($chaveDeAcordeRepetido){
-      (new PositivoMatched($indice, AprovadosQueue::$cifrasArpovadas[$chaveDeAcordeRepetido], 0))->handle();
+      (new PositivoFinalMatch($indice, AprovadosQueue::$cifrasArpovadas[$chaveDeAcordeRepetido]))->deduce();
       return true;
     }
 
@@ -59,7 +61,7 @@ class Analise
       
       } catch (\Throwable $th) {
         
-        (new NegativoMatched($indice, $acorde, $key))->handle('');
+        (new NegativoFinalMatch($indice, $acorde))->deduce();
         return;
 
       }

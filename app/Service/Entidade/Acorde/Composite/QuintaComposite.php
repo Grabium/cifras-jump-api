@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entidade\Acorde\Composite;
+namespace App\Service\Entidade\Acorde\Composite;
 
 class QuintaComposite extends Composite
 {

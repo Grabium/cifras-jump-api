@@ -3,7 +3,7 @@
 namespace App\Service\Analise\Command;
 
 use App\Service\Analise\Matched\TercaMatched;
-use App\Service\Analise\Matched\NegativoMatched;
+use App\Service\Analise\FinalMatch\NegativoFinalMatch;
 use App\Service\Analise\Matched\EnarmoniaMatched;
 
 class MenorCommand extends Command
@@ -39,7 +39,7 @@ class MenorCommand extends Command
 
     private function negar()
     {
-        (new NegativoMatched($this->indice, $this->acorde, $this->key))->handle('');
+        (new NegativoFinalMatch($this->indice, $this->acorde))->deduce();
     }
 
     private function falharEmKey1($enarmonia): bool

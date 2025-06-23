@@ -2,7 +2,7 @@
 
 namespace App\Service\Analise\Command;
 
-use App\Service\Analise\Matched\PositivoMatched;
+use App\Service\Analise\FinalMatch\PositivoFinalMatch;
 
 class SpaceCommand extends Command
 {
@@ -12,7 +12,7 @@ class SpaceCommand extends Command
    ******/
     public function analisar():bool
     {
-        (new PositivoMatched($this->indice, $this->acorde, $this->key))->handle();
+        (new PositivoFinalMatch($this->indice, $this->acorde))->deduce();
         return true;
     }
 }

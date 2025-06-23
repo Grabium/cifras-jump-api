@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entidade\Aprovados;
+namespace App\Service\Entidade\Aprovados;
 
 class AprovadosQueue
 {

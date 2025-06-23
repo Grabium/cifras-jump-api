@@ -1,29 +1,32 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\PreparacaoDados\PreparacaoDadosController;
 use App\Http\Requests\MainRequest;
-use App\Entidade\Texto\Texto;
+use App\Service\Entidade\Texto\Texto;
+use App\Service\PreAnalise\PreAnalise;
 use App\Service\Analise\Analise;
 
 class MainController extends Controller
 {
-    private PreparacaoDadosController $preparacao;
+    private PreAnalise $preAnalise;
+    private Texto $textoObj;
     private Analise $analise;
-    public string $textoOriginal;
-    
 
     public function __construct(MainRequest $request)
     {
-        $this->textoOriginal = new Texto($request->get('texto'))->textoOriginal;
-        $this->preparacao = new PreparacaoDadosController();
-        $this->analise = new Analise();
+        $this->preAnalise = new PreAnalise($request);
     }
 
     public function main()
     {
-        $this->preparacao->preparar($this->textoOriginal);
+        $this->preparar();
         $this->analise->run();
+    }
+
+    private function preparar()
+    {
+        $this->textoObj = $this->preAnalise->textoFactory();
+        $acordesQueue = $this->preAnalise->getAcordesQueue($this->textoObj->textoOriginal);
+        $this->analise = $this->preAnalise->analiseFactory($acordesQueue);
     }
 }

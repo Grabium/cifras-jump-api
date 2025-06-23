@@ -1,7 +1,7 @@
 <?php
-namespace App\Entidade\Acorde\Cifra;
+namespace App\Service\Entidade\Acorde\Cifra;
 
-use App\Entidade\Acorde\Composite\TomComposite;
+use App\Service\Entidade\Acorde\Composite\TomComposite;
 
 class Cifra
 {

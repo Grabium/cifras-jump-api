@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entidade\Texto;
+namespace App\Service\Entidade\Texto;
 
 class Texto
 {
