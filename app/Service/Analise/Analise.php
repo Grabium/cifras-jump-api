@@ -41,6 +41,12 @@ class Analise
 
   private function verificarAcordesRepetidos(int $indice, Acorde $acorde): bool
   {
+
+    //acordes AmEm não devem pular a análise.
+    if(($acorde->cifraOriginal->sinal == 'Am ') || ($acorde->cifraOriginal->sinal == 'Em ')){
+      return false;
+    }
+
     $chaveDeAcordeRepetido = array_search($acorde->cifraOriginal->sinal, AprovadosQueue::getSinais());
       
     if($chaveDeAcordeRepetido){
