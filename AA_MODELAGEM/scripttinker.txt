@@ -1,0 +1,15 @@
+php artisan tinker
+
+//o codigo está quebrado agora mas serve de modelo.
+
+use App\Entidade\Acorde\Acorde;
+use App\Entidade\Acorde\Cifra\Cifra;
+
+$cifra = new Cifra('F#m');
+$acorde = new Acorde($cifra);
+echo 'acorde :'.$acorde->cifraOriginal->sinal;
+echo 'tonalidade :'.$acorde->cifraOriginal->fundamental->get();
+
+
+exit
+
