@@ -6,6 +6,6 @@ class DiminutoMatched extends Matched
 {
     public function handle(mixed $valor)
     {
-        //$this->acorde->get();
+        $this->acorde->quinta->set($valor);
     }
 }

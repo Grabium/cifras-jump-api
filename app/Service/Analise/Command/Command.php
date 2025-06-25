@@ -6,22 +6,23 @@ use App\Service\Entidade\Acorde\Acorde;
 
 abstract class Command
 {
-  public int $indice;//referente ao CifrasQueue::acordes
-  public int $key;//chave que identifica o caractere.
+  public int $indiceAcordesQueue;//referente ao CifrasQueue::acordes
+  public int $keyChar;//chave que identifica o caractere.
   public Acorde $acorde;
   public string $caractere;
 
-  public function __construct(int $indice, Acorde $acorde, int $key)
+  public function __construct(int $indiceAcordesQueue, Acorde $acorde, int $keyChar)
   {
-    $this->indice = $indice;
-    $this->key = $key;
+    $this->indiceAcordesQueue = $indiceAcordesQueue;
+    $this->keyChar = $keyChar;
     $this->acorde = $acorde;
-    $this-> caractere = $this->acorde->cifraOriginal->sinal[$key];
+    $this->caractere = $this->acorde->cifraOriginal->sinal[$keyChar];
   }
 
   /*****
    * @param void
-   * @return bool - true (chama o próximo acode). false (continua analisando o acorde).
+   * @return string - CHAMAR_PROXIMO_ACORDE ou CHAMAR_PROXIMO_CARACTERE, que são ações para o iterador de sinal (Analise).
+   * @return int - quntidade de caracteres a pular no Analise->iteradorSinal()
    */
-  abstract public function analisar(): bool;
+  abstract public function analisar(): int | string;
 }

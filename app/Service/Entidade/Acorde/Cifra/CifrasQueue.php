@@ -10,6 +10,8 @@ class CifrasQueue
 
     public function enfileirarAcordes(array $matches):array
     {
+        $this->acordes = [];
+
         foreach($matches as $match){
             $cifra = new Cifra($match[0]);
             $this->acordes[$match[1]] = new Acorde($cifra);

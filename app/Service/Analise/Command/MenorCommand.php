@@ -9,37 +9,35 @@ use App\Service\Analise\Matched\EnarmoniaMatched;
 class MenorCommand extends Command
 {
     /*****
-   * @param void
-   * @return bool - true (chama o próximo acode). false (continua analisando o acorde).
-   ******/
-    public function analisar(): bool
+    * @param void
+    * @return string - CHAMAR_PROXIMO_ACORDE ou CHAMAR_PROXIMO_CARACTERE, que são ações para o iterador de sinal (Analise).
+    * @return int - quntidade de caracteres a pular no Analise->iteradorSinal()
+    */
+    public function analisar(): int | string
     {
-        //echo 'Inicializando Menor'.PHP_EOL;
         $enarmonia = $this->acorde->enarmonia->get();
         $terca = $this->acorde->terca->get();
 
-        //echo 'Enarmonia: ', $enarmonia, ' - Terça: ', $terca, ' - Key: ', $this->key;
-
         if($terca != 'NaoTestado'){
             $this->negar();
-            return true;
+            return 'CHAMAR_PROXIMO_ACORDE';
         }
 
-        $falhar = 'falharEmKey'.$this->key;
+        $falhar = 'falharEmKey'.$this->keyChar;
         $falhou = $this->$falhar($enarmonia);
         
         if($falhou){
-            return true;
+            return 'CHAMAR_PROXIMO_ACORDE';
         }
 
-        (new TercaMatched($this->indice, $this->acorde, $this->key))->handle('menor');
+        (new TercaMatched($this->indiceAcordesQueue, $this->acorde, $this->keyChar))->handle('menor');
 
-        return false;
+        return 'CHAMAR_PROXIMO_CARACTERE';
     }
 
     private function negar()
     {
-        (new NegativoFinalMatch($this->indice, $this->acorde))->deduce();
+        (new NegativoFinalMatch($this->indiceAcordesQueue, $this->acorde))->deduce();
     }
 
     private function falharEmKey1($enarmonia): bool
@@ -48,7 +46,7 @@ class MenorCommand extends Command
             $this->negar();
             return true;
         }elseif($enarmonia == 'NaoTestado'){
-            (new EnarmoniaMatched($this->indice, $this->acorde, $this->key))->handle('natural');
+            (new EnarmoniaMatched($this->indiceAcordesQueue, $this->acorde, $this->keyChar))->handle('natural');
             
         }
 

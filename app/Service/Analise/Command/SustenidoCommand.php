@@ -8,19 +8,20 @@ use App\Service\Analise\Matched\TomFundamentalMatched;
 class SustenidoCommand extends Command
 {
     /*****
-   * @param void
-   * @return bool - true (chama o próximo acode). false (continua analisando o acorde).
-   ******/
-    public function analisar(): bool
+     * @param void
+     * @return string - CHAMAR_PROXIMO_ACORDE ou CHAMAR_PROXIMO_CARACTERE, que são ações para o iterador de sinal (Analise).
+     * @return int - quntidade de caracteres a pular no Analise->iteradorSinal()
+     */
+    public function analisar(): int | string
     {
-        if($this->key != 1){
+        if($this->keyChar != 1){
             //processar intervalo
             echo 'Enttrou no if de intervalo em SustenidoCommand'.PHP_EOL;
         }
 
-        (new EnarmoniaMatched($this->indice, $this->acorde, $this->key))->handle($this->caractere);
-        (new TomFundamentalMatched($this->indice, $this->acorde, $this->key))->handle('');
+        (new EnarmoniaMatched($this->indiceAcordesQueue, $this->acorde, $this->keyChar))->handle($this->caractere);
+        (new TomFundamentalMatched($this->indiceAcordesQueue, $this->acorde, $this->keyChar))->handle('');
 
-        return false;
+        return 'CHAMAR_PROXIMO_CARACTERE';
     }
 }

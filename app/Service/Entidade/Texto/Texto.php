@@ -9,6 +9,10 @@ class Texto
     
     public function __construct(string $texto)
     {
+        $caracteres = ['°', 'º'];
+        $marcadores = ['dim', 'dim'];
+        $texto = str_replace($caracteres, $marcadores, $texto);
+
         $this->textoOriginal = ' '.$texto.' ';
     }
 }
