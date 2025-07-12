@@ -2,7 +2,7 @@
 
 namespace App\Service\Analise\Command;
 
-use App\Service\Analise\FinalMatch\PositivoFinalMatch;
+use App\Service\Analise\FinalSet\PositivoFinalSet;
 
 class SpaceCommand extends Command
 {
@@ -13,7 +13,6 @@ class SpaceCommand extends Command
     */
     public function analisar(): int | string
     {
-        (new PositivoFinalMatch($this->indiceAcordesQueue, $this->acorde))->deduce();
-        return 'CHAMAR_PROXIMO_ACORDE';
+        return 'INSERIR_EM_APROVADO';
     }
 }

@@ -3,59 +3,42 @@ namespace App\Service\Analise;
 
 use App\Service\Entidade\Acorde\Acorde;
 use App\Service\Analise\Command\Command;
-use App\Service\Entidade\Aprovados\AprovadosQueue;
-use App\Service\Analise\FinalMatch\PositivoFinalMatch;
-use App\Service\Analise\FinalMatch\NegativoFinalMatch;
+use App\Service\Queues\GerenciadorQueues;
 
 class Analise
 {
   private Command $command;
-  private array $acordesQueue;
   private array $listaCommand;
   private string $namespaceComand;
+  private GerenciadorQueues $queues;
 
-  public function __construct(array $acordesQueue)
+  public function __construct(GerenciadorQueues $queues)
   {
-    $this->acordesQueue = $acordesQueue;
+    $this->queues = $queues;
     $this->listaCommand = new CommandList()->get();
     $this->namespaceComand = 'App\\Service\\Analise\\Command\\';
   }
 
   public function run()
   {
-    foreach($this->acordesQueue as $indiceAcordesQueue => $acorde){
+    foreach($this->queues->getAnalisar() as $indiceAcordesAAnalisarQueue => $acorde){
 
-      $chamarProximoAcorde = $this->verificarAcordesRepetidos($indiceAcordesQueue, $acorde);
-      if($chamarProximoAcorde){
+      $chaveDeAcordeRepetido = $this->queues->verificarAcordesRepetidos($indiceAcordesAAnalisarQueue, $acorde);
+      if($chaveDeAcordeRepetido){
+        $this->queues->inserirEmAprovados($indiceAcordesAAnalisarQueue, $this->queues->getAprovados($chaveDeAcordeRepetido));
         continue;
       }
 
-      $this->iteradorSinal($indiceAcordesQueue, $acorde);
+      $this->iteradorSinal($indiceAcordesAAnalisarQueue, $acorde);
 
     }
 
-    dd(AprovadosQueue::$cifrasArpovadas);
+    dd($this->queues->getAprovados());
   }
 
-  private function verificarAcordesRepetidos(int $indiceAcordesQueue, Acorde $acorde): bool
-  {
+  
 
-    //acordes AmEm não devem pular a análise.
-    if(($acorde->cifraOriginal->sinal == 'Am ') || ($acorde->cifraOriginal->sinal == 'Em ')){
-      return false;
-    }
-
-    $chaveDeAcordeRepetido = array_search($acorde->cifraOriginal->sinal, AprovadosQueue::getSinais());
-      
-    if($chaveDeAcordeRepetido){
-      (new PositivoFinalMatch($indiceAcordesQueue, AprovadosQueue::$cifrasArpovadas[$chaveDeAcordeRepetido]))->deduce();
-      return true;
-    }
-
-    return false;
-  }
-
-  private function iteradorSinal(int $indiceAcordesQueue, Acorde $acorde)
+  private function iteradorSinal(int $indiceAcordesAAnalisarQueue, Acorde $acorde)
   {
     $sinalArray = str_split($acorde->get());
     $countSinalArray = count($sinalArray);
@@ -69,23 +52,31 @@ class Analise
         $nomeComando = $this->namespaceComand.$this->listaCommand[$caractere];
       
       } catch (\Throwable $th) {
-        (new NegativoFinalMatch($indiceAcordesQueue, $acorde))->deduce();
+        $this->queues->inserirEmReprovados($indiceAcordesAAnalisarQueue, $acorde);
         return;
       }
 
-      $this->command = new $nomeComando($indiceAcordesQueue, $acorde, $keyChar);
+      $this->command = new $nomeComando($indiceAcordesAAnalisarQueue, $acorde, $keyChar);
       
       $acaoDoIterador = $this->command->analisar();
 
       switch ($acaoDoIterador) {
-        case 'CHAMAR_PROXIMO_ACORDE':
+
+        case 'INSERIR_EM_APROVADO':
+          $this->queues->inserirEmAprovados($indiceAcordesAAnalisarQueue, $acorde);
           return;
-          break;
+
+        case 'INSERIR_EM_REPROVADO':
+          $this->queues->inserirEmReprovados($indiceAcordesAAnalisarQueue, $acorde);
+          return;
+
         case 'CHAMAR_PROXIMO_CARACTERE':
           break;
-        default:
+
+        default://recebe um int para pular os characteres desnecessários para análise.
           $keyChar += $acaoDoIterador;
           break;
+
       }
     }
   }

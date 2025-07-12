@@ -19,8 +19,9 @@ class CifrasJump
     public function converter(string $texto, int $fator)
     {
         $textoObj = $this->mediador->textoFactory($texto);
-        $acordesQueue = $this->mediador->getAcordesQueue($textoObj->textoOriginal);
-        $this->mediador->analiseFactory($acordesQueue)->run();
+        $acordesAAnalisarQueue = $this->mediador->factoryGerenciadorQueues();
+        $this->mediador->enfileirarAcordes($acordesAAnalisarQueue, $textoObj->textoOriginal);
+        $this->mediador->analiseFactory($acordesAAnalisarQueue)->run();
         
     }
 }

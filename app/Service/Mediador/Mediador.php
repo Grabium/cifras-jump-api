@@ -2,8 +2,8 @@
 namespace App\Service\Mediador;
 
 use App\Service\Entidade\Texto\Texto;
-use App\Service\Entidade\Acorde\Cifra\CifrasQueue;
 use App\Service\Analise\Analise;
+use App\Service\Queues\GerenciadorQueues;
 
 class Mediador
 {
@@ -12,16 +12,19 @@ class Mediador
         return new Texto($texto);
     }
 
-    public function getAcordesQueue(string $texto): array
+    public function factoryGerenciadorQueues(): GerenciadorQueues
     {
-        $regex = '[ABCDEFG][^\s]*[\t\n\s\r]';//tudo até o primeiro espaço.
-        preg_match_all('/'.$regex.'/ ', $texto, $matches, PREG_OFFSET_CAPTURE);
-        return (new CifrasQueue())->enfileirarAcordes($matches[0]);
+        return new GerenciadorQueues();
     }
 
-    public function analiseFactory(array $acordesQueue)
+    public function enfileirarAcordes(GerenciadorQueues $queues, string $texto): void
     {
-        return new Analise($acordesQueue);
+        $queues->enfileirarAcordes($texto);
+    }
+
+    public function analiseFactory(GerenciadorQueues $queues)
+    {
+        return new Analise($queues);
     }
 
     public function conversorFactory()

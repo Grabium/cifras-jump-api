@@ -19,31 +19,31 @@ class MenorCommand extends Command
         $terca = $this->acorde->terca->get();
 
         if($terca != 'NaoTestado'){
-            $this->negar();
-            return 'CHAMAR_PROXIMO_ACORDE';
+            //$this->negar();
+            return 'INSERIR_EM_REPROVADO';
         }
 
         $falhar = 'falharEmKey'.$this->keyChar;
         $falhou = $this->$falhar($enarmonia);
         
         if($falhou){
-            return 'CHAMAR_PROXIMO_ACORDE';
+            return 'INSERIR_EM_REPROVADO';
         }
 
         (new TercaMatched($this->indiceAcordesQueue, $this->acorde, $this->keyChar))->handle('menor');
 
         return 'CHAMAR_PROXIMO_CARACTERE';
     }
-
+/*
     private function negar()
     {
         (new NegativoFinalMatch($this->indiceAcordesQueue, $this->acorde))->deduce();
     }
-
+*/
     private function falharEmKey1($enarmonia): bool
     {
         if($enarmonia != 'NaoTestado'){
-            $this->negar();
+            //$this->negar();
             return true;
         }elseif($enarmonia == 'NaoTestado'){
             (new EnarmoniaMatched($this->indiceAcordesQueue, $this->acorde, $this->keyChar))->handle('natural');
@@ -56,7 +56,7 @@ class MenorCommand extends Command
     private function falharEmKey2($enarmonia): bool
     {
         if(!in_array($enarmonia, ['b','#'])){
-            $this->negar();
+            //$this->negar();
             return true;
         }
         return false;        
