@@ -1,24 +1,15 @@
 <?php
-namespace App\Service\PreAnalise;
+namespace App\Service\Mediador;
 
-use App\Http\Requests\MainRequest;
 use App\Service\Entidade\Texto\Texto;
 use App\Service\Entidade\Acorde\Cifra\CifrasQueue;
 use App\Service\Analise\Analise;
 
-class PreAnalise
+class Mediador
 {
-
-    private MainRequest $request;
-
-    public function __construct(MainRequest $request)
+    public function textoFactory(string $texto)
     {
-        $this->request = $request;
-    }
-
-    public function textoFactory()
-    {
-        return new Texto($this->request->get('texto'));
+        return new Texto($texto);
     }
 
     public function getAcordesQueue(string $texto): array

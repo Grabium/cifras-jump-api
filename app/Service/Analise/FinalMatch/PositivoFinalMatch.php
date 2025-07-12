@@ -14,6 +14,10 @@ class PositivoFinalMatch extends FinalMatch
 
     private function configurarPadroes()
     {
+        if($this->acorde->enarmonia->get() == 'NaoTestado'){
+            $this->acorde->enarmonia->set('natural');
+        }
+
         if($this->acorde->terca->get() == 'NaoTestado'){
             $this->acorde->terca->set('maior');
         }
