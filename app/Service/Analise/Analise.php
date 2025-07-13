@@ -75,7 +75,7 @@ class Analise
         case 'CHAMAR_PROXIMO_CARACTERE':
           break;
 
-        default://recebe um int para pular os characteres desnecessários para análise.
+        default://recebe um int para pular os characteres desnecessários, julgados assim pelo command, para análise.
           $keyChar += $acaoDoIterador;
           break;
 

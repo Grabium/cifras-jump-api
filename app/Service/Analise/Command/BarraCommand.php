@@ -12,7 +12,7 @@ class BarraCommand extends Command
     public function analisar(): int | string
     {
         if($this->flag->barra->status()){
-            return 'INSERIR_EM_NEGATIVO';
+            return 'INSERIR_EM_REPROVADO';
         }
 
         $this->flag->barra->abrir();
