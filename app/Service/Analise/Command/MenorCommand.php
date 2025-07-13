@@ -8,11 +8,11 @@ use App\Service\Analise\Matched\EnarmoniaMatched;
 
 class MenorCommand extends Command
 {
-    /*****
-    * @param void
-    * @return string - CHAMAR_PROXIMO_ACORDE ou CHAMAR_PROXIMO_CARACTERE, que são ações para o iterador de sinal (Analise).
-    * @return int - quntidade de caracteres a pular no Analise->iteradorSinal()
-    */
+   /*****
+   * @param void
+   * @return string - 'INSERIR_EM_REPROVADO', 'INSERIR_EM_APROVADO' ou 'CHAMAR_PROXIMO_CARACTERE', que são ações para o iterador de sinal (Analise).
+   * @return int - quntidade de caracteres a pular no Analise->iteradorSinal()
+   */
     public function analisar(): int | string
     {
         $enarmonia = $this->acorde->enarmonia->get();
@@ -30,14 +30,14 @@ class MenorCommand extends Command
             return 'INSERIR_EM_REPROVADO';
         }
 
-        (new TercaMatched($this->indiceAcordesQueue, $this->acorde, $this->keyChar))->handle('menor');
+        (new TercaMatched($this->acorde, $this->keyChar))->handle('menor');
 
         return 'CHAMAR_PROXIMO_CARACTERE';
     }
 /*
     private function negar()
     {
-        (new NegativoFinalMatch($this->indiceAcordesQueue, $this->acorde))->deduce();
+        (new NegativoFinalMatch($this->acorde))->deduce();
     }
 */
     private function falharEmKey1($enarmonia): bool
@@ -46,7 +46,7 @@ class MenorCommand extends Command
             //$this->negar();
             return true;
         }elseif($enarmonia == 'NaoTestado'){
-            (new EnarmoniaMatched($this->indiceAcordesQueue, $this->acorde, $this->keyChar))->handle('natural');
+            (new EnarmoniaMatched($this->acorde, $this->keyChar))->handle('natural');
             
         }
 

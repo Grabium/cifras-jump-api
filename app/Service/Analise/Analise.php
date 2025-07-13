@@ -3,6 +3,7 @@ namespace App\Service\Analise;
 
 use App\Service\Entidade\Acorde\Acorde;
 use App\Service\Analise\Command\Command;
+use App\Service\Analise\Flag\FlagAnalise;
 use App\Service\Queues\GerenciadorQueues;
 
 class Analise
@@ -42,6 +43,7 @@ class Analise
   {
     $sinalArray = str_split($acorde->get());
     $countSinalArray = count($sinalArray);
+    $flag = new FlagAnalise();
 
     for($keyChar = 0; $keyChar < $countSinalArray; $keyChar++){
     
@@ -56,8 +58,8 @@ class Analise
         return;
       }
 
-      $this->command = new $nomeComando($indiceAcordesAAnalisarQueue, $acorde, $keyChar);
-      
+      $this->command = new $nomeComando($acorde, $keyChar, $flag);
+            
       $acaoDoIterador = $this->command->analisar();
 
       switch ($acaoDoIterador) {

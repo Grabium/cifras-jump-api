@@ -2,9 +2,7 @@
 
 namespace App\Service\Analise\Command;
 
-use App\Service\Analise\FinalSet\PositivoFinalSet;
-
-class SpaceCommand extends Command
+class BarraCommand extends Command
 {
    /*****
    * @param void
@@ -13,10 +11,13 @@ class SpaceCommand extends Command
    */
     public function analisar(): int | string
     {
-        if($this->flag->barra->status()||$this->flag->parentesis->status()||$this->flag->possivelIntervaloComposto->status()){
-            return 'INSERIR_EM_REPROVADO';
+        if($this->flag->barra->status()){
+            return 'INSERIR_EM_NEGATIVO';
         }
-        
-        return 'INSERIR_EM_APROVADO';
+
+        $this->flag->barra->abrir();
+
+        return 'CHAMAR_PROXIMO_CARACTERE';
     }
 }
+

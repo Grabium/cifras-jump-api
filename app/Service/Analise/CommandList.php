@@ -22,6 +22,7 @@ class CommandList
             "b"=>"BemolCommand",
             "m"=>"MenorCommand",
             "d"=>"DimCommand",
+            "/"=>"BarraCommand",
         ];
     }
 }
