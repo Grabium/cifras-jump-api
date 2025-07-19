@@ -1,25 +1,15 @@
 <?php
 
-namespace App\Service\Analise\Command;
+namespace App\Service\Analise\Analise;
 
-use App\Service\Analise\Matched\TercaMatched;
-use App\Service\Analise\FinalMatch\NegativoFinalMatch;
-use App\Service\Analise\Matched\EnarmoniaMatched;
-
-class MenorCommand extends Command
+class MenorAnalise extends Analise
 {
-   /*****
-   * @param void
-   * @return string - 'INSERIR_EM_REPROVADO', 'INSERIR_EM_APROVADO' ou 'CHAMAR_PROXIMO_CARACTERE', que são ações para o iterador de sinal (Analise).
-   * @return int - quntidade de caracteres a pular no Analise->iteradorSinal()
-   */
     public function analisar(): int | string
     {
         $enarmonia = $this->acorde->enarmonia->get();
         $terca = $this->acorde->terca->get();
 
         if($terca != 'NaoTestado'){
-            //$this->negar();
             return 'INSERIR_EM_REPROVADO';
         }
 
@@ -30,23 +20,17 @@ class MenorCommand extends Command
             return 'INSERIR_EM_REPROVADO';
         }
 
-        (new TercaMatched($this->acorde, $this->keyChar))->handle('menor');
+        $this->acorde->terca->set('menor');
 
         return 'CHAMAR_PROXIMO_CARACTERE';
     }
-/*
-    private function negar()
-    {
-        (new NegativoFinalMatch($this->acorde))->deduce();
-    }
-*/
+
     private function falharEmKey1($enarmonia): bool
     {
         if($enarmonia != 'NaoTestado'){
-            //$this->negar();
             return true;
         }elseif($enarmonia == 'NaoTestado'){
-            (new EnarmoniaMatched($this->acorde, $this->keyChar))->handle('natural');
+            $this->acorde->enarmonia->set('natural');
             
         }
 
@@ -56,7 +40,6 @@ class MenorCommand extends Command
     private function falharEmKey2($enarmonia): bool
     {
         if(!in_array($enarmonia, ['b','#'])){
-            //$this->negar();
             return true;
         }
         return false;        

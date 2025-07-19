@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Service\Analise\Command;
+namespace App\Service\Analise\Analise;
 
-use App\Service\Analise\FinalSet\PositivoFinalSet;
-
-class SpaceCommand extends Command
+class SpaceAnalise extends Analise
 {
    /*****
    * @param void

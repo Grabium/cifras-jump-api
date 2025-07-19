@@ -2,22 +2,22 @@
 namespace App\Service\Analise;
 
 use App\Service\Entidade\Acorde\Acorde;
-use App\Service\Analise\Command\Command;
+use App\Service\Analise\Analise\Analise;
 use App\Service\Analise\Flag\FlagAnalise;
 use App\Service\Queues\GerenciadorQueues;
 
-class Analise
+class AnaliseBroker
 {
-  private Command $command;
-  private array $listaCommand;
+  private Analise $analise;
+  private array $listaAnalise;
   private string $namespaceComand;
   private GerenciadorQueues $queues;
 
   public function __construct(GerenciadorQueues $queues)
   {
     $this->queues = $queues;
-    $this->listaCommand = new CommandList()->get();
-    $this->namespaceComand = 'App\\Service\\Analise\\Command\\';
+    $this->listaAnalise = new AnaliseList()->get();
+    $this->namespaceComand = 'App\\Service\\Analise\\Analise\\';
   }
 
   public function run()
@@ -51,16 +51,16 @@ class Analise
 
       try {
 
-        $nomeComando = $this->namespaceComand.$this->listaCommand[$caractere];
+        $nomeComando = $this->namespaceComand.$this->listaAnalise[$caractere];
       
       } catch (\Throwable $th) {
         $this->queues->inserirEmReprovados($indiceAcordesAAnalisarQueue, $acorde);
         return;
       }
 
-      $this->command = new $nomeComando($acorde, $keyChar, $flag);
+      $this->analise = new $nomeComando($acorde, $keyChar, $flag);
             
-      $acaoDoIterador = $this->command->analisar();
+      $acaoDoIterador = $this->analise->analisar();
 
       switch ($acaoDoIterador) {
 
@@ -75,7 +75,7 @@ class Analise
         case 'CHAMAR_PROXIMO_CARACTERE':
           break;
 
-        default://recebe um int para pular os characteres desnecessários, julgados assim pelo command, para análise.
+        default://recebe um int para pular os characteres desnecessários, julgados assim pelo analise, para análise.
           $keyChar += $acaoDoIterador;
           break;
 

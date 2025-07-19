@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service\Analise\Command;
+namespace App\Service\Analise\Analise;
 
 use App\Service\Entidade\Acorde\Acorde;
 use App\Service\Analise\Flag\FlagAnalise;
 
-abstract class Command
+abstract class Analise
 {
   public int $keyChar;
   public Acorde $acorde;

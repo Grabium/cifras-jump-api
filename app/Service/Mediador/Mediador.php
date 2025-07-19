@@ -2,7 +2,7 @@
 namespace App\Service\Mediador;
 
 use App\Service\Entidade\Texto\Texto;
-use App\Service\Analise\Analise;
+use App\Service\Analise\AnaliseBroker;
 use App\Service\Queues\GerenciadorQueues;
 
 class Mediador
@@ -22,9 +22,9 @@ class Mediador
         $queues->enfileirarAcordes($texto);
     }
 
-    public function analiseFactory(GerenciadorQueues $queues)
+    public function analiseBrokerFactory(GerenciadorQueues $queues)
     {
-        return new Analise($queues);
+        return new AnaliseBroker($queues);
     }
 
     public function conversorFactory()
