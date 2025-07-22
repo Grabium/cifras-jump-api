@@ -1,11 +1,11 @@
 <h1 align="center">CifrasJump-API</h1>
 <h3 align="center"><em>ESTAMOS EM CONSTRUÇÃO!</em></h3><br />
-<p>CifrasJump é uma web API (atualmente em desenvolvimento) que recebe um conteúdo textual e converte as partes detectadas como cifras musicais, se houver, para a tonalidade desejada.  Baseado na quantidade de semi-tons no corpo da requisição</p>
+<p>CifrasJump é uma web API (atualmente em desenvolvimento) que recebe um conteúdo textual e converte as partes detectadas como cifras musicais, se houverem, para a tonalidade desejada, baseado na quantidade de semi-tons no corpo da requisição.</p>
 <h2 align="left">Introdução</h2>
 <p>Envie a requisição para o end-point: <strong>/api/main</strong> :</p>
 
+_Requisição_
 ```html
-
 Method:"post"
 fator:"5"
 texto:"
@@ -16,7 +16,7 @@ E/A                   C#m7  A  E/G#  F#m
 ```
 E obtenha como resposta o texto com a tonalidade 5 semi-tons acima (lá + 5 ST = ré):
 
-
+_Resposta_
 ```html
 texto:"
  D     G/D
