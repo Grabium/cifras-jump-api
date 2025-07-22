@@ -4,7 +4,7 @@
 <h2 align="left">Introdução</h2>
 <p>Envie a requisição para o end-point: <strong>/api/main</strong> :</p>
 
-_Requisição_
+<sub>_Requisição_</sub>
 ```html
 Method:"post"
 fator:"5"
@@ -16,7 +16,7 @@ E/A                   C#m7  A  E/G#  F#m
 ```
 E obtenha como resposta o texto com a tonalidade 5 semi-tons acima (lá + 5 ST = ré):
 
-_Resposta_
+<sub>_Resposta_</sub>
 ```html
 texto:"
  D     G/D
@@ -37,4 +37,6 @@ A/D                   F#m7  D  A/C#  Bm
 - Ab
 - A#m
 - Abm
+- A°
+- Adim
 - A/G ou qualquer outro acima já citado com inversão.
