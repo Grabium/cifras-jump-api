@@ -2,7 +2,7 @@
 
 namespace App\Service\Analise\Analise;
 
-class TomAnalise extends Analise
+class TomAnalise extends AnaliseAbstract
 {
     public function analisar(): int | string
     {

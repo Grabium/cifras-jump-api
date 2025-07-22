@@ -2,7 +2,7 @@
 
 namespace App\Service\Analise\Analise;
 
-class SpaceAnalise extends Analise
+class SpaceAnalise extends AnaliseAbstract
 {
    /*****
    * @param void
@@ -11,7 +11,11 @@ class SpaceAnalise extends Analise
    */
     public function analisar(): int | string
     {
-        if($this->flag->barra->status()||$this->flag->parentesis->status()||$this->flag->possivelIntervaloComposto->status()){
+        $barra = $this->flag->barra->status();
+        $parentesis = $this->flag->parentesis->status();
+        $composto = $this->flag->possivelIntervaloComposto->status();
+
+        if($barra||$parentesis||$composto){
             return 'INSERIR_EM_REPROVADO';
         }
         

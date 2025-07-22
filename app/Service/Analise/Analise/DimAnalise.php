@@ -1,7 +1,7 @@
 <?php
 namespace App\Service\Analise\Analise;
 
-class DimAnalise extends Analise
+class DimAnalise extends AnaliseAbstract
 {
     public function analisar(): int | string
     {

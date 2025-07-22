@@ -5,7 +5,7 @@ namespace App\Service\Analise\Analise;
 use App\Service\Entidade\Acorde\Acorde;
 use App\Service\Analise\Flag\FlagAnalise;
 
-abstract class Analise
+abstract class AnaliseAbstract
 {
   public int $keyChar;
   public Acorde $acorde;

@@ -2,7 +2,7 @@
 
 namespace App\Service\Analise\Analise;
 
-class BarraAnalise extends Analise
+class BarraAnalise extends AnaliseAbstract
 {
     public function analisar(): int | string
     {
