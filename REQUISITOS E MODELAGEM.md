@@ -187,6 +187,8 @@ Este diagrama ilustra o caminho de uma requisição desde o cliente até a respo
 
     Aaug (Lá Aumentado)
 
+    A5+ (Lá Aumentado)
+    
     A+ (Lá Aumentado - Notação alternativa)
 
     A7b5 (Lá Dominante com Sétima e Quinta Diminuta)
