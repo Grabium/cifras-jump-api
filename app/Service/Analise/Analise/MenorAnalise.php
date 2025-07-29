@@ -13,7 +13,7 @@ class MenorAnalise extends AnaliseAbstract
             return 'INSERIR_EM_REPROVADO';
         }
 
-        $falhar = 'falharEmKey'.$this->keyChar;
+        $falhar = 'falharEmKey'.$this->sinal->getPosition();
         $falhou = $this->$falhar($enarmonia);
         
         if($falhou){

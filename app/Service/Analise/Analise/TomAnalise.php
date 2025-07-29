@@ -6,11 +6,10 @@ class TomAnalise extends AnaliseAbstract
 {
     public function analisar(): int | string
     {
-        $tom = $this->getTom()[0];
-        $comandoParaIterador = $this->getTom()[1];
+        [$tom, $comandoParaIterador] = $this->getTom();
 
         //se inversao
-        if($this->keyChar != 0){
+        if($this->sinal->getPosition() != 0){
 
             if(!$this->flag->barra->status()){
                 return 'INSERIR_EM_REPROVADO';
@@ -34,12 +33,12 @@ class TomAnalise extends AnaliseAbstract
     
     private function getTom(): array
     {
-        $tom = $this->acorde->get()[$this->keyChar];
+        $tom = $this->sinal->getCurrent();
         $regex = '[#b]';
 
-        if(preg_match('/'.$regex.'/', $this->acorde->get()[$this->keyChar +1])){
-            $tom .= $this->acorde->get()[$this->keyChar +1];
-            $comandoParaIterador = 1;
+        if(preg_match('/'.$regex.'/', $this->sinal->getNext())){
+            $tom .= $this->sinal->getNext();
+            $comandoParaIterador = 2;
         }else{
             $comandoParaIterador = 'CHAMAR_PROXIMO_CARACTERE';
         }

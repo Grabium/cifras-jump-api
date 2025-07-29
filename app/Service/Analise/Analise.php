@@ -1,17 +1,26 @@
 <?php
 namespace App\Service\Analise;
 
+use App\Service\Analise\Analise\AnaliseIterador;
+use App\Service\Entidade\Acorde\Acorde;
 use App\Service\Queues\GerenciadorQueues;
+use App\Service\Analise\Wrappers\Wrapper;
 
 class Analise
 {
   private GerenciadorQueues $queues;
-  private AnaliseAcorde $analiseAcorde;
+  private array $analiseList = [];
 
   public function __construct(GerenciadorQueues $queues)
   {
     $this->queues = $queues;
-    $this->analiseAcorde = new AnaliseAcorde($this->queues);
+    $this->analiseList = new AnaliseList()->get();   
+  }
+
+  private function factoryAnaliseIterador(Acorde $acorde):AnaliseIterador
+  {
+    $wrapper = $wrapper = new Wrapper($acorde);
+    return new AnaliseIterador($wrapper, $this->analiseList);
   }
 
   public function run()
@@ -24,7 +33,19 @@ class Analise
         continue;
       }
 
-      $this->analiseAcorde->iteradorSinal($indiceAcordesAAnalisarQueue, $acorde);
+      $analiseIterador = $this->factoryAnaliseIterador($acorde);
+      $acaoDoIterador = $analiseIterador->analisar();
+
+      switch ($acaoDoIterador) {
+
+        case 'INSERIR_EM_APROVADO':
+          $this->queues->inserirEmAprovados($indiceAcordesAAnalisarQueue, $acorde);
+          break;
+
+        case 'INSERIR_EM_REPROVADO':
+          $this->queues->inserirEmReprovados($indiceAcordesAAnalisarQueue, $acorde);
+          break;
+      }
 
     }
 

@@ -1,18 +1,23 @@
 <?php
 
-namespace App\Service\Analise\Flag;
+namespace App\Service\Analise\Wrappers;
 
-class FlagAnalise
+use App\Service\Analise\Wrappers\Flag\BarraFlag;
+use App\Service\Analise\Wrappers\Flag\ParentesisFlag;
+use App\Service\Analise\Wrappers\Flag\PossivelIntervaloCompostoFlag;
+
+class Flag
 {
   public BarraFlag $barra;
   public ParentesisFlag $parentesis;
   public PossivelIntervaloCompostoFlag $possivelIntervaloComposto;
 
-  public function __construct()
+  public function flagFactory()
   {
     $this->barra = new BarraFlag();
     $this->parentesis = new ParentesisFlag();
     $this->possivelIntervaloComposto = new PossivelIntervaloCompostoFlag();
-  }
-  
+
+    return $this;
+  }  
 }

@@ -21,7 +21,6 @@ class AcordesAAnalisarQueue
             $this->acordes[$match[1]] = new Acorde($cifra);
         }
 
-        //dd($this->acordes);
         return $this->acordes;
     }
 

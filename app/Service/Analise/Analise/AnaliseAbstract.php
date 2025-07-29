@@ -3,21 +3,23 @@
 namespace App\Service\Analise\Analise;
 
 use App\Service\Entidade\Acorde\Acorde;
-use App\Service\Analise\Flag\FlagAnalise;
+use App\Service\Analise\Wrappers\Flag;
+use App\Service\Analise\Wrappers\IteradorSinal;
+use App\Service\Analise\Wrappers\Wrapper;
 
 abstract class AnaliseAbstract
 {
-  public int $keyChar;
-  public Acorde $acorde;
-  public string $caractere;
-  public FlagAnalise $flag;
+  protected Acorde $acorde;
+  protected Flag $flag;
+  protected IteradorSinal $sinal;
+  protected Wrapper $wrapperMemento;
 
-  public function __construct(Acorde $acorde, int $keyChar, FlagAnalise $flag)
+  public function __construct(Wrapper $wrapper)
   {
-    $this->acorde = $acorde;
-    $this->keyChar = $keyChar;
-    $this->caractere = $this->acorde->cifraOriginal->sinal[$keyChar];
-    $this->flag = $flag;
+    $this->acorde = $wrapper->getAcorde();
+    $this->flag = $wrapper->getFlag();
+    $this->sinal = $wrapper->getIterador();
+    $this->wrapperMemento = $wrapper; //
   }
 
   /*****
