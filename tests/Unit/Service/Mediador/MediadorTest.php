@@ -14,7 +14,7 @@ class MediadorTest extends TestCase
      * Criado por mim (Gabriel)
      * Run PoweerShell    >>./test.ps1
      */
-    public function test_example(): void
+    public function _Mediador(): void
     {
         $this->assertTrue(true);
     }

@@ -2,25 +2,49 @@
 
 namespace App\Service\Entidade\Acorde\Composite;
 
-abstract class IntervaloComposite extends Composite
+class IntervaloComposite extends Composite
 {
-    abstract public function validate(mixed $key);
+    public array $sinais = [];
 
-    public array $sinais;
-
-    public function set(mixed $key = 'NaoTestado')
+    public function set(mixed $key = 'NaoTestado'): void
     {
-        $this->validate($key);
+        if (!$this->tryValidated($key)) {
+            return;
+        }
 
-        if($this->sinais[0] == 'NaoTestado'){
+        if (!empty($this->sinais) && $this->sinais[0] === 'NaoTestado') {
             $this->sinais[0] = $key;
-        }else{
-            $this->sinais[] = $key;
+            return;
+        }
+
+        $this->sinais[] = $key;
+    }
+
+    public function validate(mixed $key)
+    {
+        $regexs[0] = '^[#b]?([234567]|(9)|(10)|(11)|(12)|(13)|(14))$';
+        $regexs[1] = '^([234567]|(9)|(10)|(11)|(12)|(13)|(14))[+-]?$';
+        $regexs[2] = '^NaoTestado$';
+
+        $flag = false;
+
+        foreach ($regexs as $regex) {
+            $flag = (preg_match('/' . $regex . '/', $key)) ? true : $flag;
+        }
+
+        if (!$flag) {
+            throw new \TypeError('Intervalo numérico inválido: ' . $key . '.');
         }
     }
 
-    public function get():mixed
+    public function get(): string
     {
-        return $this->sinais;
+        $intervalo = '';
+
+        foreach ($this->sinais as $k => $sinal) {
+            $intervalo .= ($k == 0) ? $sinal : '/' . $sinal;
+        }
+
+        return $intervalo;
     }
 }

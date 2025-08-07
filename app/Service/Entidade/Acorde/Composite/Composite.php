@@ -14,14 +14,32 @@ abstract class Composite
         $this->set();
     }
 
-    public function set(mixed $key = 'NaoTestado')
+    public function set(mixed $key = 'NaoTestado'):void
     {
-        $this->validate($key);
+        
+        if(!$this->tryValidated($key)){
+            return;
+        }
+        
         $this->sinal = $key;
     }
 
     public function get(): mixed
     {
         return $this->sinal;
+    }
+
+    public function tryValidated($key):bool
+    {
+        try {
+        
+            $this->validate($key);
+        
+        }catch(\TypeError $terr){
+            echo $terr->getMessage().PHP_EOL;
+            return false;
+        }
+        
+        return true;
     }
 }
