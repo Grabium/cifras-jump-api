@@ -23,7 +23,7 @@ class Wrapper
 
     public function getFlag():Flag
     {
-        return $this->flag->flagFactory();
+        return $this->flag;
     }
 
     public function getAcorde():Acorde

@@ -19,7 +19,7 @@ abstract class AnaliseAbstract
     $this->acorde = $wrapper->getAcorde();
     $this->flag = $wrapper->getFlag();
     $this->sinal = $wrapper->getIterador();
-    $this->wrapperMemento = $wrapper; //
+    $this->wrapperMemento = $wrapper;
   }
 
   /*****

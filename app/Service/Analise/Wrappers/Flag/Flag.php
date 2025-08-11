@@ -11,7 +11,7 @@ class Flag
     $this->fechar();
   }
   
-  public function status():bool
+  public function status(): bool
   {
     return $this->status;
   }

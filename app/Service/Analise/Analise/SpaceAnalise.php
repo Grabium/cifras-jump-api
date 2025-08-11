@@ -11,14 +11,18 @@ class SpaceAnalise extends AnaliseAbstract
    */
     public function analisar(): int | string
     {
-        $barra = $this->flag->barra->status();
-        $parentesis = $this->flag->parentesis->status();
-        $composto = $this->flag->possivelIntervaloComposto->status();
+        $acaoDoIterador = $this->inconsistencias();
 
-        if($barra||$parentesis||$composto){
-            return 'INSERIR_EM_REPROVADO';
-        }
-        
-        return 'INSERIR_EM_APROVADO';
+        $this->flag->fecharTodasAsFlags(); //Não surte efeito prático. Apenas melhora a depuração.
+
+        return $acaoDoIterador;
+    }
+
+    public function inconsistencias(): string
+    {
+        $barraInconsistente = ($this->flag->barra->status() && (!$this->flag->eventoModular->status()));
+        $parentesisAberto = $this->flag->parentesis->status();
+
+        return ($parentesisAberto||$barraInconsistente) ? 'INSERIR_EM_REPROVADO' : 'INSERIR_EM_APROVADO' ;
     }
 }

@@ -19,7 +19,7 @@ class Analise
 
   private function factoryAnaliseIterador(Acorde $acorde):AnaliseIterador
   {
-    $wrapper = $wrapper = new Wrapper($acorde);
+    $wrapper = new Wrapper($acorde);
     return new AnaliseIterador($wrapper, $this->analiseList);
   }
 
@@ -49,7 +49,7 @@ class Analise
 
     }
 
-    dd($this->queues->getAprovados());
+    dd('Acordes aprovados: ',$this->queues->getAprovados());
   }
 
 }
