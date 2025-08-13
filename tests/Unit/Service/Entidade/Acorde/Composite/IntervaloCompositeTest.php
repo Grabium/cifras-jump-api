@@ -9,6 +9,7 @@ class IntervaloCompositeTest extends TestCase
 {
     /**
      * @dataProvider dataProviders
+     * @group unitarios
      */
     public function testInserirApenasUmIntervalo(mixed $key, string $expected): void
     {

@@ -57,6 +57,7 @@ class IntervaloAnalise extends AnaliseAbstract
     //caso seja consistente.
     $this->flag->intervaloComsustenidoBemol->abrir();
     $this->flag->possivelIntervalo->abrir();
+    $this->flag->aguardandoQualquerAlgarismo->abrir();
     return 'CHAMAR_PROXIMO_CARACTERE';
   }
 

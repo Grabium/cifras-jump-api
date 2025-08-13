@@ -26,17 +26,20 @@ class AnaliseIterador extends AnaliseAbstract
             
             $caractere = $this->sinal->getCurrent();
             
+            echo 'Caractere a analizar: "'.$caractere.'" .... '.PHP_EOL;
+            
             try {
 
                 $nomeDaClasseAnalise = 'App\\Service\\Analise\\Analise\\'.$this->analiseList[$caractere];
             
             } catch (\Throwable $th) {
+                echo 'catch';
                 return 'INSERIR_EM_REPROVADO';
             }
 
             $this->analise = new $nomeDaClasseAnalise($this->wrapperMemento);
             
-            echo 'Caractere a analizar: "'.$caractere.'" .... '.PHP_EOL;
+            
                     
             $acaoDoIterador = $this->analise->analisar();
             

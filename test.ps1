@@ -9,8 +9,10 @@
 #./vendor/bin/phpunit ./tests/Unit --exclude-group ignored
 
 #teste verboso:
-echo "
-
-Rodando testes em ./tests/Unit/:
+Write-Output "
+Rodando testes verborsos por artisan:
 "
 php artisan test
+
+#grupo unitário
+#./vendor/bin/phpunit ./tests/Unit -group unitarios

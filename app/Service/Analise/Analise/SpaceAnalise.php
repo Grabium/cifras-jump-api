@@ -2,8 +2,12 @@
 
 namespace App\Service\Analise\Analise;
 
+use App\Service\Analise\Analise\Traits\CiclosAnalise;
+
 class SpaceAnalise extends AnaliseAbstract
 {
+
+    use CiclosAnalise;
    /*****
    * @param void
    * @return string - 'INSERIR_EM_REPROVADO', 'INSERIR_EM_APROVADO' ou 'CHAMAR_PROXIMO_CARACTERE', que são ações para o iterador de sinal (Analise).
@@ -11,8 +15,8 @@ class SpaceAnalise extends AnaliseAbstract
    */
     public function analisar(): int | string
     {
-        $acaoDoIterador = $this->inconsistencias();
-
+        $acaoDoIterador = $this->verificarCiclosEmAberto($this->wrapperMemento);
+ 
         $this->flag->fecharTodasAsFlags(); //Não surte efeito prático. Apenas melhora a depuração.
 
         return $acaoDoIterador;
