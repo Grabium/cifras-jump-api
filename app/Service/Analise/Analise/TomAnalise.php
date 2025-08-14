@@ -11,7 +11,7 @@ class TomAnalise extends AnaliseAbstract
         //se inversao
         if($this->sinal->getPosition() != 0){
 
-            if(!$this->flag->barra->status()){
+            if(!$this->flag->barra->status()||$this->flag->eventoModular->status()){
                 return 'INSERIR_EM_REPROVADO';
             }
 
@@ -23,7 +23,7 @@ class TomAnalise extends AnaliseAbstract
             $this->acorde->cifraOriginal->fundamental->set($tom);
         }
 
-        //se enarmônico
+        //se enarmônico - LOCAL ERRADO!
         if(strlen($tom) == 2){
             $this->acorde->enarmonia->set($tom[1]);
         }

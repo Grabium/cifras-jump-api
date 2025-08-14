@@ -71,6 +71,7 @@ class IntervaloAnalise extends AnaliseAbstract
     
     //caso seja consistente.
     $this->flag->possivelIntervalo->abrir();
+    $this->flag->aguardandoQualquerAlgarismo->fechar();
     return 'CHAMAR_PROXIMO_CARACTERE';
   }
   
@@ -106,6 +107,7 @@ class IntervaloAnalise extends AnaliseAbstract
   {
     //Inconsistências já foram analisadas para chamar este método em runRegex()
     $this->flag->segundoAgarismo->abrir();
+    $this->flag->aguardandoQualquerAlgarismo->fechar();
     return 'CHAMAR_PROXIMO_CARACTERE';
   }
 

@@ -16,16 +16,16 @@ class IteradorSinal
     private function set(string $sinal)
     {
         $this->sinal = $sinal;
-        if($this->count() < 1){
+        if ($this->count() < 1) {
             throw new \InvalidArgumentException('Quantidade mínima de caracteres é 1.');
         }
         $this->sinalArray = str_split($sinal);
         $this->position = 0;
     }
 
-    public function isDefined(): bool 
+    public function isDefined(): bool
     {
-        if($this->count() == 0){
+        if ($this->count() == 0) {
             return false;
         }
 
@@ -34,7 +34,7 @@ class IteradorSinal
 
     public function isValid(int|null $position = null): bool
     {
-        $position = (is_null($position)) ? $this->getPosition() : $position ;
+        $position = (is_null($position)) ? $this->getPosition() : $position;
         return (($position < $this->count()) && ($position >= 0));
     }
 
@@ -43,7 +43,7 @@ class IteradorSinal
         return strlen($this->sinal);
     }
 
-    public function getFullString():string
+    public function getFullString(): string
     {
         return $this->sinal;
     }
@@ -53,12 +53,12 @@ class IteradorSinal
         return $this->sinalArray;
     }
 
-    public function getCurrent():string
+    public function getCurrent(): string
     {
         return $this->sinalArray[$this->position];
     }
 
-    public function showCurrent():void
+    public function showCurrent(): void
     {
         echo $this->getCurrent();
     }
@@ -69,14 +69,14 @@ class IteradorSinal
         echo "Position: {$this->getPosition()}\n";
     }
 
-    public function getPosition():int
+    public function getPosition(): int
     {
         return $this->position;
     }
 
     public function setPosition(int $newPosition): bool
     {
-        if(!$this->isValid($newPosition)){
+        if (!$this->isValid($newPosition)) {
             return false;
         }
 
@@ -84,35 +84,35 @@ class IteradorSinal
         return true;
     }
 
-    public function rewind():void
+    public function rewind(): void
     {
         $this->setPosition(0);
     }
 
-    public function end():void
+    public function end(): void
     {
-        $this->setPosition($this->count() -1);
+        $this->setPosition($this->count() - 1);
     }
 
     public function hasNext(int $steps = 1): bool
     {
         $newPosition = ($this->getPosition() + $steps);
-        return ($this->isValid($newPosition)) ? true : false ;
+        return ($this->isValid($newPosition)) ? true : false;
     }
 
     public function next(int $steps = 1): bool
     {
-    if(!$this->hasNext($steps)){
-        return false;
-    }
+        if (!$this->hasNext($steps)) {
+            return false;
+        }
 
-    $this->position += $steps;
+        $this->position += $steps;
         return true;
     }
 
     public function getNext(int $steps = 1): bool | string
     {
-        if(!$this->next($steps)){
+        if (!$this->next($steps)) {
             return false;
         }
 
@@ -123,23 +123,23 @@ class IteradorSinal
 
     public function hasPrev(int $steps = 1): bool
     {
-    $newPosition = ($this->getPosition() - $steps);
-        return ($this->isValid($newPosition)) ? true : false ;
+        $newPosition = ($this->getPosition() - $steps);
+        return ($this->isValid($newPosition)) ? true : false;
     }
 
     public function prev(int $steps = 1): bool
     {
-    if(!$this->hasPrev($steps)){
-        return false;
-    }
+        if (!$this->hasPrev($steps)) {
+            return false;
+        }
 
-    $this->position -= $steps;
+        $this->position -= $steps;
         return true;
     }
 
     public function getPrev(int $steps = 1): bool | string
     {
-        if(!$this->prev($steps)){
+        if (!$this->prev($steps)) {
             return false;
         }
 
@@ -149,23 +149,23 @@ class IteradorSinal
     }
 
     //Comparadores
-    public function equalsCurrent(string $value):bool
+    public function equalsCurrent(string $value): bool
     {
         return ($this->getCurrent() === $value);
     }
 
-    public function matchCurrent(string $regex):bool
+    public function matchCurrent(string $regex): bool
     {
-        return (preg_match('/'.$regex.'/', $this->getCurrent()));
+        return (preg_match('/' . $regex . '/', $this->getCurrent()));
     }
 
-    public function matchNext(string $regex):bool
+    public function matchNext(string $regex): bool
     {
-        return ($this->getNext()) ? preg_match('/'.$regex.'/', $this->getNext()) : false ;
+        return ($this->getNext()) ? preg_match('/' . $regex . '/', $this->getNext()) : false;
     }
 
-    public function matchPrev(string $regex):bool
+    public function matchPrev(string $regex): bool
     {
-        return ($this->getPrev()) ? preg_match('/'.$regex.'/', $this->getPrev()) : false ;
+        return ($this->getPrev()) ? preg_match('/' . $regex . '/', $this->getPrev()) : false;
     }
 }

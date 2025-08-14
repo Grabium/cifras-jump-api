@@ -19,7 +19,7 @@ class SpaceAnalise extends AnaliseAbstract
  
         $this->flag->fecharTodasAsFlags(); //Não surte efeito prático. Apenas melhora a depuração.
 
-        return $acaoDoIterador;
+        return ($acaoDoIterador === 'CHAMAR_PROXIMO_CARACTERE') ? 'INSERIR_EM_APROVADO' : $acaoDoIterador;
     }
 
     public function inconsistencias(): string

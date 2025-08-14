@@ -4,7 +4,8 @@ namespace App\Service\Analise\Wrappers\Flag;
 
 
 /**
- * Caracterizado por qualquer conjunto de caracteres que deve significar algo juntos para configurar o acorde que poderia ou não ser posto dentro de "/" ou "()".
+ * Caracterizado por qualquer conjunto de caracteres dentro de "//" ou "()".
+ * Não é útil settar true caso a análise resolva tudo numa única chamada a AnaliseAbstract::analise(), como é o caso do TomAnalise.
  */
 class EventoModularFlag extends Flag
 {
