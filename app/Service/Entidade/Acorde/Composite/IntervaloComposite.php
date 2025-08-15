@@ -20,7 +20,7 @@ class IntervaloComposite extends Composite
         $this->sinais[] = $key;
     }
 
-    //Salva estaticamente até $cicloFinalizado ser true. Finalmente chama set().
+    //Salva estaticamente até $cicloFinalizado ser true (isso vem do fechamento dos ciclos). Finalmente chama set().
     public function setConcat(bool $cicloFinalizado = false, string $key = ''): void
     {
         static $sinalConcat = '';
@@ -66,5 +66,16 @@ class IntervaloComposite extends Composite
         }
 
         return false;
+    }
+
+    public function getString(): string
+    {
+        $intervalo = '';
+
+        foreach ($this->sinais as $k => $sinal) {
+            $intervalo .= ($k == 0) ? $sinal : '/' . $sinal;
+        }
+
+        return $intervalo;
     }
 }

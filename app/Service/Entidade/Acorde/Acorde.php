@@ -13,7 +13,8 @@ class Acorde
     
     public     Cifra $cifraOriginal;
     public     Cifra $cifraFinal;
-    public EnarmoniaComposite $enarmonia;
+    public EnarmoniaComposite $enarmoniaFundamental;
+    public EnarmoniaComposite $enarmoniaInversao;
     public     TercaComposite $terca;
     public    QuintaComposite $quinta;
     public    SetimaComposite $setima;
@@ -24,7 +25,8 @@ class Acorde
     {
         $this->cifraOriginal = $cifra;
         //$this->cifraFinal = new Cifra('');//apenas na fase de conversão.
-        $this->enarmonia = new EnarmoniaComposite();
+        $this->enarmoniaFundamental = new EnarmoniaComposite();
+        $this->enarmoniaInversao = new EnarmoniaComposite();
         $this->terca = new TercaComposite();
         $this->quinta = new QuintaComposite();
         $this->setima = new SetimaComposite();

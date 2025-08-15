@@ -6,7 +6,7 @@ class MenorAnalise extends AnaliseAbstract
 {
     public function analisar(): int | string
     {
-        $enarmonia = $this->acorde->enarmonia->get();
+        $enarmonia = $this->acorde->enarmoniaFundamental->get();
         $terca = $this->acorde->terca->get();
 
         if($terca != 'NaoTestado'){
@@ -30,7 +30,7 @@ class MenorAnalise extends AnaliseAbstract
         if($enarmonia != 'NaoTestado'){
             return true;
         }elseif($enarmonia == 'NaoTestado'){
-            $this->acorde->enarmonia->set('natural');
+            $this->acorde->enarmoniaFundamental->set('natural');
             
         }
 

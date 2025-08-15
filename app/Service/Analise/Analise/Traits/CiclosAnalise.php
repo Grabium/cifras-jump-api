@@ -18,7 +18,7 @@ trait CiclosAnalise
             }
         }
 
-        if($acaoDoIterador == 'CHAMAR_PROXIMO_CARACTERE'){
+        if($acaoDoIterador == 'CHAMAR_PROXIMO_CARACTERE' && $this->flag->possivelIntervalo->status()){
             $this->acorde->intervalo->setConcat(true, '');
             $acaoDoIterador = $this->acorde->intervalo->hasDuplicityIntervals() ? $this->reprovado : $acaoDoIterador ;
         }
