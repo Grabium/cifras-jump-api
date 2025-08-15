@@ -3,10 +3,7 @@
 namespace App\Service\Analise\Analise\Traits;
 
 use App\Service\Analise\Wrappers\Wrapper;
-/*use App\Service\Entidade\Acorde\Acorde;
-use App\Service\Analise\Wrappers\Flag;
-use App\Service\Analise\Wrappers\IteradorSinal;
-*/
+
 trait CiclosAnalise
 {   
     public function verificarCiclosEmAberto(Wrapper $wrapper): string
@@ -19,6 +16,11 @@ trait CiclosAnalise
             if ($acaoDoIterador == $this->reprovado) {
                 break;
             }
+        }
+
+        if($acaoDoIterador == 'CHAMAR_PROXIMO_CARACTERE'){
+            $this->acorde->intervalo->setConcat(true, '');
+            $acaoDoIterador = $this->acorde->intervalo->hasDuplicityIntervals() ? $this->reprovado : $acaoDoIterador ;
         }
 
         return $acaoDoIterador;
@@ -47,8 +49,8 @@ trait CiclosAnalise
     }
 
     /***
-     * CICLOS A SEREM ANALISADOS
-     */
+    * CICLOS A SEREM ANALISADOS
+    */
     
     
     //Detecta duas barras em seguida.

@@ -14,13 +14,13 @@ abstract class Composite
         $this->set();
     }
 
-    public function set(mixed $key = 'NaoTestado'):void
+    public function set(mixed $key = 'NaoTestado'): void
     {
-        
-        if(!$this->tryValidated($key)){
+
+        if (!$this->tryValidated($key)) {
             return;
         }
-        
+
         $this->sinal = $key;
     }
 
@@ -29,17 +29,17 @@ abstract class Composite
         return $this->sinal;
     }
 
-    public function tryValidated($key):bool
+    public function tryValidated($key): bool
     {
         try {
-        
+            
             $this->validate($key);
-        
-        }catch(\TypeError $terr){
-            echo $terr->getMessage().PHP_EOL;
+
+        } catch (\InvalidArgumentException $err) {
+            echo $err->getMessage() . PHP_EOL;
             return false;
         }
-        
+
         return true;
     }
 }

@@ -23,10 +23,12 @@ class Acorde
     public function __construct(Cifra $cifra)
     {
         $this->cifraOriginal = $cifra;
+        //$this->cifraFinal = new Cifra('');//apenas na fase de conversão.
         $this->enarmonia = new EnarmoniaComposite();
         $this->terca = new TercaComposite();
         $this->quinta = new QuintaComposite();
         $this->setima = new SetimaComposite();
+        $this->intervalo = new IntervaloComposite();
     }
 
     public function get()

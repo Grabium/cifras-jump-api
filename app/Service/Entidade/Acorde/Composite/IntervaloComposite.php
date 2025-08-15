@@ -20,8 +20,26 @@ class IntervaloComposite extends Composite
         $this->sinais[] = $key;
     }
 
-    public function validate(mixed $key)
+    //Salva estaticamente até $cicloFinalizado ser true. Finalmente chama set().
+    public function setConcat(bool $cicloFinalizado = false, string $key = ''): void
     {
+        static $sinalConcat = '';
+
+        if($key != ''){
+            $sinalConcat .= $key;
+        }
+
+        if(!$cicloFinalizado){
+            return;
+        }
+
+        $this->set($sinalConcat);
+        $sinalConcat = '';
+    }
+
+    public function validate(mixed $key): void
+    {
+
         $regexs[0] = '^[#b]?([234567]|(9)|(10)|(11)|(12)|(13)|(14))$';
         $regexs[1] = '^([234567]|(9)|(10)|(11)|(12)|(13)|(14))[+-]?$';
         $regexs[2] = '^NaoTestado$';
@@ -33,18 +51,20 @@ class IntervaloComposite extends Composite
         }
 
         if (!$flag) {
-            throw new \TypeError('Intervalo numérico inválido: ' . $key . '.');
+            throw new \InvalidArgumentException('Intervalo numérico com formato inválido: ' . $key . '.');
         }
     }
 
-    public function get(): string
+    public function hasDuplicityIntervals(): bool
     {
-        $intervalo = '';
+        $contagemDeIntervalosUnicos = array_count_values($this->sinais);
 
-        foreach ($this->sinais as $k => $sinal) {
-            $intervalo .= ($k == 0) ? $sinal : '/' . $sinal;
+        foreach($contagemDeIntervalosUnicos as $quantidadeDoIntervaloAtual){
+            if($quantidadeDoIntervaloAtual > 1){
+                return true;
+            }
         }
 
-        return $intervalo;
+        return false;
     }
 }
