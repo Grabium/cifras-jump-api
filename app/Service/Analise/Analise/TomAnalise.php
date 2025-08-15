@@ -21,12 +21,14 @@ class TomAnalise extends AnaliseAbstract
         }else{
 
             $this->acorde->cifraOriginal->fundamental->set($tom);
+
+            //se enarmônico - LOCAL ERRADO!
+            if(strlen($tom) == 2){
+                $this->acorde->enarmonia->set($tom[1]);
+            }
         }
 
-        //se enarmônico - LOCAL ERRADO!
-        if(strlen($tom) == 2){
-            $this->acorde->enarmonia->set($tom[1]);
-        }
+        
         
         return $comandoParaIterador;
     }
