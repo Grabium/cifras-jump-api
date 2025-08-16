@@ -10,6 +10,7 @@ use App\Service\Analise\Wrappers\Flag\IntervaloComsustenidoBemolFlag;
 use App\Service\Analise\Wrappers\Flag\ParentesisFlag;
 use App\Service\Analise\Wrappers\Flag\PossivelIntervaloFlag;
 use App\Service\Analise\Wrappers\Flag\SegundoAgarismoFlag;
+use App\Service\Analise\Wrappers\Flag\InversaoConfirmadaFlag;
 
 class Flag
 {
@@ -21,6 +22,7 @@ class Flag
 	public EventoModularFlag $eventoModular;
 	public SegundoAgarismoFlag $segundoAgarismo;
 	public AguardandoQualquerAlgarismoFlag $aguardandoQualquerAlgarismo;
+	public InversaoConfirmadaFlag $inversaoConfirmada;
 
 	public function __construct()
 	{
@@ -32,6 +34,7 @@ class Flag
 		$this->eventoModular = new EventoModularFlag();
 		$this->segundoAgarismo = new SegundoAgarismoFlag();
 		$this->aguardandoQualquerAlgarismo = new AguardandoQualquerAlgarismoFlag();
+		$this->inversaoConfirmada = new InversaoConfirmadaFlag();
 	}
 
 	public function fecharTodasAsFlags()

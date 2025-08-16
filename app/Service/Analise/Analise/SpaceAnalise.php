@@ -15,6 +15,10 @@ class SpaceAnalise extends AnaliseAbstract
    */
     public function analisar(): int | string
     {
+        if($this->filtrosPreAnalise() == 'INSERIR_EM_REPROVADO'){
+            return 'INSERIR_EM_REPROVADO';
+        }
+
         $acaoDoIterador = $this->verificarCiclosEmAberto($this->wrapperMemento);
  
         $this->flag->fecharTodasAsFlags(); //Não surte efeito prático. Apenas melhora a depuração.

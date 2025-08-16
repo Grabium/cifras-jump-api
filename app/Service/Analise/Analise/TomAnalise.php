@@ -10,28 +10,15 @@ class TomAnalise extends AnaliseAbstract
 
     public function analisar(): int | string
     {
+        if($this->filtrosPreAnalise() == 'INSERIR_EM_REPROVADO'){
+            return 'INSERIR_EM_REPROVADO';
+        }
+
         $this->setTom();
 
         $nameFunction = ($this->seInversao()) ? 'tratarInversao' : 'tratarFundamental';
         $this->$nameFunction();
 
-        //se inversao
-        /*if ($this->sinal->getPosition() != 0) {
-
-            if (!$this->flag->barra->status() || $this->flag->eventoModular->status()) {
-                return 'INSERIR_EM_REPROVADO';
-            }
-
-            $this->flag->barra->fechar();
-            $this->acorde->cifraOriginal->inversao->set($this->tom);
-        } else {
-
-            $this->acorde->cifraOriginal->fundamental->set($this->tom);
-
-            if (strlen($this->tom) == 2) {
-                $this->acorde->enarmoniaFundamental->set($this->tom[1]);
-            }
-        }*/
 
         $this->flag->eventoModular->abrir();
         return $this->comandoParaIterador;
@@ -72,6 +59,7 @@ class TomAnalise extends AnaliseAbstract
 
         $this->setEnarmonia('enarmoniaInversao');
         $this->setCifra('inversao');
+        $this->flag->inversaoConfirmada->abrir();
     }
 
     private function setEnarmonia(string $atributoDoAcordeParaAlterar): void

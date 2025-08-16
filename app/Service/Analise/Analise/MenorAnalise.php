@@ -6,6 +6,10 @@ class MenorAnalise extends AnaliseAbstract
 {
     public function analisar(): int | string
     {
+        if($this->filtrosPreAnalise() == 'INSERIR_EM_REPROVADO'){
+            return 'INSERIR_EM_REPROVADO';
+        }
+
         $enarmonia = $this->acorde->enarmoniaFundamental->get();
         $terca = $this->acorde->terca->get();
 

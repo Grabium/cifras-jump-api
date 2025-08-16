@@ -15,7 +15,7 @@ class AnaliseIterador extends AnaliseAbstract
     
     public function __construct(Wrapper $wrapper, array $analiseList)
     {
-        parent::__construct($wrapper);
+        parent::__construct($wrapper, __CLASS__);
         $this->analiseList = $analiseList;
     }
 
@@ -37,7 +37,7 @@ class AnaliseIterador extends AnaliseAbstract
                 return 'INSERIR_EM_REPROVADO';
             }
 
-            $this->analise = new $nomeDaClasseAnalise($this->wrapperMemento);
+            $this->analise = new $nomeDaClasseAnalise($this->wrapperMemento, $nomeDaClasseAnalise);
             
             
                     

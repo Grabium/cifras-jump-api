@@ -8,11 +8,15 @@ class IntervaloAnalise extends AnaliseAbstract
 {
 	public function analisar(): int | string
 	{
+		if($this->filtrosPreAnalise() == 'INSERIR_EM_REPROVADO'){
+            return 'INSERIR_EM_REPROVADO';
+        }
+
 		$function = $this->runRegex($this->sinal->getCurrent());
 
 		try {
 
-			$comandoParaIterador = $this->$function(); //chame a função de acordo com o 1° regexs aporvado
+			$acaoDoIterador = $this->$function(); //chame a função de acordo com o 1° regexs aporvado
 
 		} catch (\Throwable $th) {
 			return 'INSERIR_EM_REPROVADO';
@@ -23,7 +27,7 @@ class IntervaloAnalise extends AnaliseAbstract
 		$this->flag->eventoModular->abrir();
 		
 
-		return $comandoParaIterador;
+		return $acaoDoIterador;
 	}
 
 	private function runRegex(string $caractere): false | string
