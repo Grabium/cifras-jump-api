@@ -28,6 +28,8 @@ class PositivoFinalSet extends FinalSet
             unset($acorde->intervalo);
         }
 
+        echo '<h2>[Resultado] "'.$acorde->cifraOriginal->sinal.'" foi aprovado!.</h2>'.PHP_EOL;
+
         
     }
 }

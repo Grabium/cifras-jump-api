@@ -21,12 +21,4 @@ class SpaceAnalise extends AnaliseAbstract
 
         return ($acaoDoIterador === 'CHAMAR_PROXIMO_CARACTERE') ? 'INSERIR_EM_APROVADO' : $acaoDoIterador;
     }
-
-    public function inconsistencias(): string
-    {
-        $barraInconsistente = ($this->flag->barra->status() && (!$this->flag->eventoModular->status()));
-        $parentesisAberto = $this->flag->parentesis->status();
-
-        return ($parentesisAberto||$barraInconsistente) ? 'INSERIR_EM_REPROVADO' : 'INSERIR_EM_APROVADO' ;
-    }
 }

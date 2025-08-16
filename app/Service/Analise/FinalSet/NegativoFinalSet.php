@@ -9,6 +9,6 @@ class NegativoFinalSet extends FinalSet
 {
     public function deduce(Acorde $acorde)
     {
-        echo '[Resultado] "'.$acorde->cifraOriginal->sinal.'" NÃO é acorde.'.PHP_EOL;
+        echo '<h2>[Resultado] "'.$acorde->cifraOriginal->sinal.'" NÃO é acorde.</h2>'.PHP_EOL;
     }
 }
