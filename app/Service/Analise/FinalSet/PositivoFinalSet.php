@@ -8,6 +8,7 @@ class PositivoFinalSet extends FinalSet
 {
     public function deduce(Acorde $acorde)
     {
+
         if($acorde->enarmoniaFundamental->get() == 'NaoTestado'){
             $acorde->enarmoniaFundamental->set('natural');
         }
@@ -32,4 +33,6 @@ class PositivoFinalSet extends FinalSet
 
         
     }
+
+    //private function setIntervals()
 }

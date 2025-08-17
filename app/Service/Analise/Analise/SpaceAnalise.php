@@ -15,7 +15,7 @@ class SpaceAnalise extends AnaliseAbstract
    */
     public function analisar(): int | string
     {
-        if($this->filtrosPreAnalise() == 'INSERIR_EM_REPROVADO'){
+        if($this->filtrosPreAnalise() === 'INSERIR_EM_REPROVADO'){
             return 'INSERIR_EM_REPROVADO';
         }
 
