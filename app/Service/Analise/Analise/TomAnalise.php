@@ -19,8 +19,6 @@ class TomAnalise extends AnaliseAbstract
         $nameFunction = ($this->seInversao()) ? 'tratarInversao' : 'tratarFundamental';
         $this->$nameFunction();
 
-
-        //$this->flag->eventoModular->abrir();
         return $this->comandoParaIterador;
     }
 

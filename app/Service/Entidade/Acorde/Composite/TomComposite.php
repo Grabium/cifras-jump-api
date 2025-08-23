@@ -11,7 +11,7 @@ class TomComposite extends Composite
    *******/
     public function validate(mixed $key)
     {
-        $regex = '^([ABCDEFG][#b]?|NaoTestado)$';
+        $regex = '^([ABCDEFG][#b]?|NaoTestado|fundamental)$';
 
         if(!preg_match('/'.$regex.'/', $key)){
             throw new \TypeError('Tonalidade inválida para o acorde: '.$key.'.');
