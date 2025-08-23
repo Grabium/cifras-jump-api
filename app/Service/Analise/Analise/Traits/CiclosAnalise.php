@@ -5,7 +5,9 @@ namespace App\Service\Analise\Analise\Traits;
 use App\Service\Analise\Wrappers\Wrapper;
 
 trait CiclosAnalise
-{   
+{  
+    use IntervalosDeduceAnalise;
+
     public function verificarCiclosEmAberto(Wrapper $wrapper): string
     {
         
@@ -20,6 +22,7 @@ trait CiclosAnalise
 
         if($acaoDoIterador == 'CHAMAR_PROXIMO_CARACTERE' && $this->flag->possivelIntervalo->status()){
             $this->acorde->intervalo->setConcat(true, '');
+            $this->deduceInterval($this->acorde);
             $acaoDoIterador = $this->acorde->intervalo->hasDuplicityIntervals() ? $this->reprovado : $acaoDoIterador ;
         }
 

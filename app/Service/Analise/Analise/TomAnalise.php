@@ -19,8 +19,6 @@ class TomAnalise extends AnaliseAbstract
         $nameFunction = ($this->seInversao()) ? 'tratarInversao' : 'tratarFundamental';
         $this->$nameFunction();
 
-
-        $this->flag->eventoModular->abrir();
         return $this->comandoParaIterador;
     }
 
@@ -59,6 +57,7 @@ class TomAnalise extends AnaliseAbstract
 
         $this->setEnarmonia('enarmoniaInversao');
         $this->setCifra('inversao');
+        $this->flag->eventoModular->abrir();
         $this->flag->inversaoConfirmada->abrir();
     }
 

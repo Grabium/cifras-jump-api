@@ -6,14 +6,17 @@ use App\Service\Entidade\Acorde\Acorde;
 
 trait IntervalosDeduceAnalise
 {
-    public function deduce(Acorde $acorde)
+    public function deduceInterval(Acorde $acorde)
     {
-        $interval = $acorde->intervalo->getEnd();
+        $lastInterval = $acorde->intervalo->getEnd();
 
-        //revisar isto. Ainda não testado.
-        [$composite, $valorDoComposite] = $this->getRulesDeduces() [$interval] ?? [null, null] ; 
-        
+        [$composite, $valorDoComposite] = $this->getRulesDeduces()[$lastInterval] ?? [null, null] ; 
 
+        if(is_null($composite) || is_null($valorDoComposite)){
+            return;
+        }
+
+        $acorde->$composite->set($valorDoComposite);
     }
 
     private function getRulesDeduces(): array
