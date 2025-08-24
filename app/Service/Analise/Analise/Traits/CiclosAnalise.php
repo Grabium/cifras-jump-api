@@ -44,8 +44,14 @@ trait CiclosAnalise
     //Nome das funções que representam ciclos
     private function getCiclosAVerificar(): array
     {
+        $caracteres = ["/" => 'barra',
+                        "(" => 'abreParentesis',
+        ];//fora isso, pode chamar $this->__call();
+
+        $caractere = $caracteres[$this->sinal->getCurrent()] ?? $this->sinal->getCurrent();
+
         return [
-            'barrasDuplicadas',
+            $caractere.'Duplicado',
             'analiseDeDezenaEmAberto',
             'sustenidoBemolSemAlgarismo',
         ];
@@ -54,14 +60,31 @@ trait CiclosAnalise
     /***
     * CICLOS A SEREM ANALISADOS
     */
-    
-    
+
+    public function __call(string $name, array $args = []): mixed
+    {
+        return $this->proximo;
+    }
+
+
+    private function abreParentesisDuplicado(): string
+    {
+        $parentesisAberto = $this->flag->parentesis->status();
+        $semEvento = $this->semEventosModulares();
+        return ($parentesisAberto && $semEvento) ? $this->reprovado : $this->proximo;
+    }
+
     //Detecta duas barras em seguida.
-    private function barrasDuplicadas(): string
+    private function barraDuplicado(): string
     {
         $haBarra = $this->flag->barra->status();
-        $semEvento = ($this->flag->eventoModular->status() == false) ? true : false;
+        $semEvento = $this->semEventosModulares();
         return ($haBarra && $semEvento) ? $this->reprovado : $this->proximo;
+    }
+
+    private function semEventosModulares(): bool
+    {
+        return (!$this->flag->eventoModular->status());
     }
 
     //Detecta que um intervalo maior que 10 não teve seu segundo algarismo digitado. Apenas o "1".

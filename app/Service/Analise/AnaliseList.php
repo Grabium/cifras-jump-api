@@ -22,6 +22,8 @@ class AnaliseList
             "m"=>"MenorAnalise",
             "d"=>"DimAnalise",
             "/"=>"BarraAnalise",
+            "("=>"AbreParentesisAnalise",
+            ")"=>"FechaParentesisAnalise",
 
             "#"=>"IntervaloAnalise",
             "b"=>"IntervaloAnalise",
