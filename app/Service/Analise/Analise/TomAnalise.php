@@ -50,7 +50,7 @@ class TomAnalise extends AnaliseAbstract
 
     private function tratarInversao(): void
     {
-        if (!$this->flag->barra->status()) {
+        if (!$this->flag->barra->status()||$this->flag->eventoModular->status()) {
             $this->comandoParaIterador = 'INSERIR_EM_REPROVADO';
             return;
         }

@@ -2,6 +2,7 @@
 
 namespace App\Service\Analise\Analise\Traits;
 
+use App\Service\Analise\Wrappers\Flag\Flag;
 use App\Service\Analise\Wrappers\Wrapper;
 
 trait CiclosAnalise
@@ -20,13 +21,20 @@ trait CiclosAnalise
             }
         }
 
-        if($acaoDoIterador == 'CHAMAR_PROXIMO_CARACTERE' && $this->flag->possivelIntervalo->status()){
-            $this->acorde->intervalo->setConcat(true, '');
-            $this->deduceInterval($this->acorde);
-            $acaoDoIterador = $this->acorde->intervalo->hasDuplicityIntervals() ? $this->reprovado : $acaoDoIterador ;
-        }
+        $acaoDoIterador = $this->trataIntervalos($acaoDoIterador);
 
         return $acaoDoIterador;
+    }
+
+    private function trataIntervalos(string $acaoDoIterador): string
+    {
+        if(!($acaoDoIterador == 'CHAMAR_PROXIMO_CARACTERE' && $this->flag->possivelIntervalo->status())){
+            return $acaoDoIterador;
+        }
+
+        $this->acorde->intervalo->setConcat(true, '');
+        $this->deduceInterval($this->acorde);
+        return $this->acorde->intervalo->hasDuplicityIntervals() ? $this->reprovado : $acaoDoIterador ;
     }
 
     //simulando um __construct(Wrapper $wrapper)
@@ -46,6 +54,7 @@ trait CiclosAnalise
     {
         $caracteres = ["/" => 'barra',
                         "(" => 'abreParentesis',
+                        ")" => 'fechaParentesis',
         ];//fora isso, pode chamar $this->__call();
 
         $caractere = $caracteres[$this->sinal->getCurrent()] ?? $this->sinal->getCurrent();
@@ -69,17 +78,30 @@ trait CiclosAnalise
 
     private function abreParentesisDuplicado(): string
     {
+        $sucedeUmaBarra = $this->verificaSeSucedeUmaBarra();
         $parentesisAberto = $this->flag->parentesis->status();
         $semEvento = $this->semEventosModulares();
-        return ($parentesisAberto && $semEvento) ? $this->reprovado : $this->proximo;
+        return (($parentesisAberto && $semEvento)||($sucedeUmaBarra)) ? $this->reprovado : $this->proximo;
+    }
+
+    private function fechaParentesisDuplicado(): string
+    {
+        $repetido = $this->sinal->matchPrev('^\)$');
+        $semEvento = $this->semEventosModulares();
+        return ($repetido || $semEvento) ? $this->reprovado : $this->proximo;
     }
 
     //Detecta duas barras em seguida.
     private function barraDuplicado(): string
     {
-        $haBarra = $this->flag->barra->status();
+        $sucedeUmaBarra = $this->verificaSeSucedeUmaBarra();
         $semEvento = $this->semEventosModulares();
-        return ($haBarra && $semEvento) ? $this->reprovado : $this->proximo;
+        return ($sucedeUmaBarra && $semEvento) ? $this->reprovado : $this->proximo;
+    }
+
+    private function verificaSeSucedeUmaBarra(): bool
+    {
+        return $this->sinal->matchPrev('^\/$');
     }
 
     private function semEventosModulares(): bool

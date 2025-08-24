@@ -30,7 +30,7 @@ trait InversaoConfirmadaAnalise
     {
         return [
             'App\\Service\\Analise\\Analise\\SpaceAnalise',
-            //'Fecha parêntesis',
+            'App\\Service\\Analise\\Analise\\FechaParentesisAnalise',
         ];
     }
     
