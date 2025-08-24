@@ -84,6 +84,11 @@ class IteradorSinal
         return true;
     }
 
+    public function equalsPosition(int $assert): bool
+    {
+        return $this->getPosition() == $assert;
+    }
+
     public function rewind(): void
     {
         $this->setPosition(0);
