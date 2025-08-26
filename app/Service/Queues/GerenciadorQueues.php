@@ -38,6 +38,14 @@ class GerenciadorQueues
         return $chaveDeAcordeRepetido;
     }
 
+    public function getAllQueues(): array
+    {
+        return ['A_analisar' => $this->getAnalisar(),
+                'Aprovados'  => $this->getAprovados(),
+                'Reprovados' => $this->getReprovados(),
+        ];
+     }
+
     public function getAprovados(null|int $indice=null):Acorde|array
     {
         return $this->acordesAprovadosQueue->get($indice);
@@ -46,6 +54,11 @@ class GerenciadorQueues
     public function getAnalisar(null|int $indice=null):Acorde|array
     {
         return $this->acordesAAnalisarQueue->get($indice);
+    }
+
+    public function getReprovados(null|int $indice=null):Acorde|array
+    {
+        return $this->acordesReprovadosQueue->get($indice);
     }
 
     public function inserirEmAprovados(int $indice, Acorde $acorde):void

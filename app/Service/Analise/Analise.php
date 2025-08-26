@@ -23,7 +23,7 @@ class Analise
     return new AnaliseIterador($wrapper, $this->analiseList);
   }
 
-  public function run()
+  public function run():array
   {
     foreach($this->queues->getAnalisar() as $indiceAcordesAAnalisarQueue => $acorde){
 
@@ -49,10 +49,8 @@ class Analise
 
     }
 
-    //Deve ser substituído por teste em: Tests\Feature\ExampleTest.php
-    //dd('Acordes aprovados: ',$this->queues->getAprovados());
-
-    return $this->queues;
+    return $this->queues->getAllQueues();
+    //dd($this->queues->getAllQueues());
   }
 
 }

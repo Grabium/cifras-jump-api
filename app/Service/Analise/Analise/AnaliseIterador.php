@@ -26,8 +26,6 @@ class AnaliseIterador extends AnaliseAbstract
             
             $caractere = $this->sinal->getCurrent();
             
-            echo 'Caractere a analizar: "'.$caractere.'" .... '.PHP_EOL;
-            
             try {
 
                 $nomeDaClasseAnalise = 'App\\Service\\Analise\\Analise\\'.$this->analiseList[$caractere];
@@ -38,13 +36,9 @@ class AnaliseIterador extends AnaliseAbstract
             }
 
             $this->analise = new $nomeDaClasseAnalise($this->wrapperMemento, $nomeDaClasseAnalise);
-            
-            
                     
             $acaoDoIterador = $this->analise->analisar();
             
-            echo 'Caractere analizado: "'.$caractere.'" chamou -> ';var_export($nomeDaClasseAnalise);echo ' resultou: "'.$acaoDoIterador.'"';dump($this->wrapperMemento);echo PHP_EOL;
-
             switch ($acaoDoIterador) {
 
                 case 'INSERIR_EM_APROVADO':

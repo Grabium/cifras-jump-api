@@ -32,7 +32,5 @@ class PositivoFinalSet extends FinalSet
         if($acorde->intervalo->getString() == 'NaoTestado'){
             unset($acorde->intervalo);
         }
-
-        echo '<h2>[Resultado] "'.$acorde->cifraOriginal->sinal.'" foi aprovado!.</h2>'.PHP_EOL;
     }
 }

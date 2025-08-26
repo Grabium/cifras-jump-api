@@ -19,8 +19,8 @@ class MainController extends Controller
     public function main()
     {
         $response = (new CifrasJump)->converter($this->texto, $this->fator);
-        
-        dd('END');
+        //dd(response()->json(['data' => $response]));
+        return response()->json(['data' => $response]);
     }
 
     
