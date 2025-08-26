@@ -78,4 +78,9 @@ class IntervaloComposite extends Composite
 
         return $intervalo;
     }
+
+    public function getEnd()
+    {
+        return end($this->sinais);
+    }
 }

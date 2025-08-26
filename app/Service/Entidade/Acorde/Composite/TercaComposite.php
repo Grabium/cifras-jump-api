@@ -11,7 +11,7 @@ class TercaComposite extends Composite
      *******/  
     protected function validate(mixed $key)
     {
-        $regex = '(menor|maior|suspenso|NaoTestado)';
+        $regex = '(menor|maior|suspensa|NaoTestado)';
 
         if(!preg_match('/'.$regex.'/', $key)){
             throw new \TypeError('Terca aceita apenas [menor|maior|suspenso|NaoTestado] como valor.');

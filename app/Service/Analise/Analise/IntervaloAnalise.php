@@ -61,7 +61,12 @@ class IntervaloAnalise extends AnaliseAbstract
 
 	private function sustenidoBemol(): string
 	{
-		if ($this->flag->eventoModular->status()) {
+		//$enarmoniaDobrada => reprova acordes com esta regex: [ABCDEFG][#b][#b][2345679]... ex: Ab#9...
+		$enarmoniaDobrada = in_array($this->acorde->enarmoniaFundamental->get(), ['b', '#']) && $this->sinal->equalsPosition(2);
+		$evento = $this->flag->eventoModular->status();
+
+		
+		if($enarmoniaDobrada || $evento){
 			return 'INSERIR_EM_REPROVADO';
 		}
 

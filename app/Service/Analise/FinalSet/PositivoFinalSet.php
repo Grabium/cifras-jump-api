@@ -13,6 +13,10 @@ class PositivoFinalSet extends FinalSet
             $acorde->enarmoniaFundamental->set('natural');
         }
 
+        if($acorde->cifraOriginal->inversao->get() == 'NaoTestado'){
+            $acorde->cifraOriginal->inversao->set('fundamental');
+        }
+
         if($acorde->terca->get() == 'NaoTestado'){
             $acorde->terca->set('maior');
         }
@@ -30,9 +34,5 @@ class PositivoFinalSet extends FinalSet
         }
 
         echo '<h2>[Resultado] "'.$acorde->cifraOriginal->sinal.'" foi aprovado!.</h2>'.PHP_EOL;
-
-        
     }
-
-    //private function setIntervals()
 }
