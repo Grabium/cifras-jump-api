@@ -4,10 +4,12 @@ namespace App\Service\Analise\Wrappers\Logs\LogsReprovacao;
 
 class LogReprovacaoList
 {
-    public function getAll(): array
+    static public function get(string $code, string $lang = 'pt'): string
     {
-        return [
-            //
+        $pt = [
+            '001' => 'Caractere pós inversão',
         ];
+
+        return $$lang[$code] ?? "Log Error: code '$code' not search!";
     }
 }

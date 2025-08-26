@@ -50,7 +50,9 @@ class Analise
     }
 
     //Deve ser substituído por teste em: Tests\Feature\ExampleTest.php
-    dd('Acordes aprovados: ',$this->queues->getAprovados());
+    //dd('Acordes aprovados: ',$this->queues->getAprovados());
+
+    return $this->queues;
   }
 
 }
