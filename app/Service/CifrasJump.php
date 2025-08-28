@@ -21,8 +21,6 @@ class CifrasJump
         $textoObj = $this->mediador->textoFactory($texto);
         $gerenciadorQueues = $this->mediador->factoryGerenciadorQueues();
         $this->mediador->enfileirarAcordes($gerenciadorQueues, $textoObj->textoOriginal);
-        return $this->mediador->analiseFactory($gerenciadorQueues)->run();//queues
-        //dd($this->mediador->analiseFactory($gerenciadorQueues)->run());
-        
+        return $this->mediador->analiseFactory($gerenciadorQueues)->run();//queues        
     }
 }

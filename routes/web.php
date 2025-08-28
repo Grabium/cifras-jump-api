@@ -9,3 +9,9 @@ Route::get('/', function () {
 Route::get('/reqsender', function () {
     return view('reqSender');
 });
+
+
+
+Route::get('/dumpjson', function (array $data = ['php', 'laravel', 'testes']) {
+    return view('dumpjson', ['data' => $data]);
+});

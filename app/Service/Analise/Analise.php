@@ -50,7 +50,6 @@ class Analise
     }
 
     return $this->queues->getAllQueues();
-    //dd($this->queues->getAllQueues());
   }
 
 }
