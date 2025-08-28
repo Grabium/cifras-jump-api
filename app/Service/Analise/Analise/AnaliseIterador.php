@@ -26,6 +26,8 @@ class AnaliseIterador extends AnaliseAbstract
             
             $caractere = $this->sinal->getCurrent();
             
+            //dump($caractere);
+
             try {
 
                 $nomeDaClasseAnalise = 'App\\Service\\Analise\\Analise\\'.$this->analiseList[$caractere];
@@ -38,6 +40,7 @@ class AnaliseIterador extends AnaliseAbstract
             $this->analise = new $nomeDaClasseAnalise($this->wrapperMemento, $nomeDaClasseAnalise);
                     
             $acaoDoIterador = $this->analise->analisar();
+            //dump($acaoDoIterador);
             
             switch ($acaoDoIterador) {
 

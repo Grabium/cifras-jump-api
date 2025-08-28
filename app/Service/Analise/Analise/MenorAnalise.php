@@ -20,6 +20,8 @@ class MenorAnalise extends AnaliseAbstract
         $falhar = 'falharEmKey'.$this->sinal->getPosition();
         $falhou = $this->$falhar($enarmonia);
         
+        //dump($falhar, $falhou, $enarmonia, $terca);
+        
         if($falhou){
             return 'INSERIR_EM_REPROVADO';
         }
@@ -31,13 +33,9 @@ class MenorAnalise extends AnaliseAbstract
 
     private function falharEmKey1($enarmonia): bool
     {
-        if($enarmonia != 'NaoTestado'){
+        if($enarmonia != 'natural'){
             return true;
-        }elseif($enarmonia == 'NaoTestado'){
-            $this->acorde->enarmoniaFundamental->set('natural');
-            
-        }
-
+        }        
         return false;        
     }
 

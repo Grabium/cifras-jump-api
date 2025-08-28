@@ -13,6 +13,10 @@ class PositivoFinalSet extends FinalSet
             $acorde->enarmoniaFundamental->set('natural');
         }
 
+        if($acorde->enarmoniaInversao->get() == 'NaoTestado'){
+            unset($acorde->enarmoniaInversao);
+        }
+
         if($acorde->cifraOriginal->inversao->get() == 'NaoTestado'){
             $acorde->cifraOriginal->inversao->set('fundamental');
         }
