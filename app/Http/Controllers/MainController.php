@@ -19,8 +19,8 @@ class MainController extends Controller
     public function main()
     {
         $response = (new CifrasJump)->converter($this->texto, $this->fator);
-        //ds($response);
-        return view('dumpjson', ['data' => json_encode($response)]);
+        ds('Analisando a Resposta: ', $response);
+        return view('dumpjson', ['data' => $response]);
     }
 
     
