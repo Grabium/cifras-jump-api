@@ -25,7 +25,7 @@ class AcordesAprovadosQueue
 
     public function inserir(int $indice, Acorde $acorde):void
     {
-        $this->cifrasArpovadas[$indice] = $acorde;
+        $this->cifrasArpovadas[$indice] = ['acorde' => $acorde];
     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Service\Analise\Analise\Traits;
 
 use App\Service\Analise\Wrappers\Wrapper;
+use App\Service\Logs\LogReprovacao;
 
 trait InversaoConfirmadaAnalise
 {
@@ -12,7 +13,12 @@ trait InversaoConfirmadaAnalise
 
         $gatilhoReprovado = (!in_array($nomeDaClasseDeAnalise, $this->getGatilhosPermitidos()));
 
-        return ($this->flag->inversaoConfirmada->status() && $gatilhoReprovado) ? $this->reprovado : $this->proximo ;
+        if($this->flag->inversaoConfirmada->status() && $gatilhoReprovado){
+            LogReprovacao::log('001', __METHOD__, __LINE__);
+            return $this->reprovado;
+        }
+
+        return $this->proximo;
     }
 
     //simulando um __construct(Wrapper $wrapper)

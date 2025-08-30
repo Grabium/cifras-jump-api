@@ -4,6 +4,7 @@ namespace App\Service\Analise\Analise\Traits;
 
 use App\Service\Analise\Wrappers\Flag\Flag;
 use App\Service\Analise\Wrappers\Wrapper;
+use App\Service\Logs\LogReprovacao;
 
 trait CiclosAnalise
 {  
@@ -34,7 +35,13 @@ trait CiclosAnalise
 
         $this->acorde->intervalo->setConcat(true, '');
         $this->deduceInterval($this->acorde);
-        return $this->acorde->intervalo->hasDuplicityIntervals() ? $this->reprovado : $acaoDoIterador ;
+        
+        if($this->acorde->intervalo->hasDuplicityIntervals()){
+            LogReprovacao::log('002', __METHOD__, __LINE__);
+            return $this->reprovado;
+        }
+
+        return $acaoDoIterador;
     }
 
     //simulando um __construct(Wrapper $wrapper)

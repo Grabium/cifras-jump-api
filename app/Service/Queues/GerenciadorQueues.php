@@ -7,6 +7,7 @@ use App\Service\Analise\FinalMatch\PositivoFinalMatch;
 use App\Service\Analise\FinalSet\NegativoFinalSet;
 use App\Service\Analise\FinalSet\PositivoFinalSet;
 use App\Service\Entidade\Acorde\Acorde;
+use App\Service\Logs\LogReprovacao;
 
 class GerenciadorQueues
 {
@@ -71,5 +72,6 @@ class GerenciadorQueues
     {
         (new NegativoFinalSet())->deduce($acorde);
         $this->acordesReprovadosQueue->inserir($indice, $acorde);
+        $this->acordesReprovadosQueue->setLog($indice, LogReprovacao::getMessage(true));
     }
 }

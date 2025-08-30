@@ -25,6 +25,11 @@ class AcordesReprovadosQueue
 
     public function inserir(int $indice, Acorde $acorde):void
     {
-        $this->cifrasReprovadas[$indice] = $acorde;
+        $this->cifrasReprovadas[$indice] = ['acorde' => $acorde];
+    }
+
+    public function setLog(int $indice, string $log): void
+    {
+        $this->cifrasReprovadas[$indice] = [$this->cifrasReprovadas[$indice]['acorde'], 'log' => $log];
     }
 }
