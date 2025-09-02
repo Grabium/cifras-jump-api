@@ -2,6 +2,8 @@
 
 namespace App\Service\Analise\Analise;
 
+use App\Service\Logs\LogReprovacao;
+
 class MenorAnalise extends AnaliseAbstract
 {
     public function analisar(): int | string
@@ -14,6 +16,7 @@ class MenorAnalise extends AnaliseAbstract
         $terca = $this->acorde->terca->get();
 
         if($terca != 'NaoTestado'){
+            LogReprovacao::log('013', __METHOD__, __LINE__);
             return 'INSERIR_EM_REPROVADO';
         }
 
@@ -23,6 +26,7 @@ class MenorAnalise extends AnaliseAbstract
         //dump($falhar, $falhou, $enarmonia, $terca);
         
         if($falhou){
+            LogReprovacao::log('014', __METHOD__, __LINE__);
             return 'INSERIR_EM_REPROVADO';
         }
 

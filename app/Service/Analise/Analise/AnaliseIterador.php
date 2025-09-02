@@ -3,7 +3,7 @@
 namespace App\Service\Analise\Analise;
 
 use App\Service\Analise\Wrappers\Wrapper;
-
+use App\Service\Logs\LogReprovacao;
 
 /***
  * Serve de interface da abstração AnaliseAbstract
@@ -33,7 +33,7 @@ class AnaliseIterador extends AnaliseAbstract
                 $nomeDaClasseAnalise = 'App\\Service\\Analise\\Analise\\'.$this->analiseList[$caractere];
             
             } catch (\Throwable $th) {
-                echo 'catch';
+                LogReprovacao::log('009', __METHOD__, __LINE__);
                 return 'INSERIR_EM_REPROVADO';
             }
 

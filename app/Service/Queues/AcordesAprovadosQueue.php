@@ -7,12 +7,13 @@ use App\Service\Entidade\Acorde\Acorde;
 class AcordesAprovadosQueue
 {
     private array $cifrasArpovadas = [];
+    private Acorde $acorde;
 
     public function getSinais()
     {
         $sinais = [];
         foreach($this->cifrasArpovadas as $key => $acorde){
-            $sinais[$key] = $acorde->get();
+            $sinais[$key] = $acorde['acorde']->get();
         }
 
         return $sinais;

@@ -12,7 +12,7 @@ class AcordesReprovadosQueue
     {
         $sinais = [];
         foreach($this->cifrasReprovadas as $key => $acorde){
-            $sinais[$key] = $acorde->get();
+            $sinais[$key] = $acorde['acorde']->get();
         }
 
         return $sinais;
@@ -30,6 +30,6 @@ class AcordesReprovadosQueue
 
     public function setLog(int $indice, string $log): void
     {
-        $this->cifrasReprovadas[$indice] = [$this->cifrasReprovadas[$indice]['acorde'], 'log' => $log];
+        $this->cifrasReprovadas[$indice] = ['acorde' => $this->cifrasReprovadas[$indice]['acorde'], 'log' => $log];
     }
 }

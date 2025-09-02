@@ -3,6 +3,7 @@
 namespace App\Service\Analise\Analise;
 
 use App\Service\Analise\Analise\Traits\CiclosAnalise;
+use App\Service\Logs\LogReprovacao;
 
 class FechaParentesisAnalise extends AnaliseAbstract
 {
@@ -16,6 +17,7 @@ class FechaParentesisAnalise extends AnaliseAbstract
         }
 
         if(!$this->flag->parentesis->status()){
+            LogReprovacao::log('011', __METHOD__, __LINE__);
             return 'INSERIR_EM_REPROVADO';
         }
 
