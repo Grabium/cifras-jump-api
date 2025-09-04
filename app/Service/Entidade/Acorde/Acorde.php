@@ -33,7 +33,7 @@ class Acorde
         $this->intervalo = new IntervaloComposite();
     }
 
-    public function get()
+    public function get():string
     {
         return $this->cifraOriginal->sinal;
     }

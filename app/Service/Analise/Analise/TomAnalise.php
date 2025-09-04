@@ -2,6 +2,8 @@
 
 namespace App\Service\Analise\Analise;
 
+use App\Service\Detail\RejectDetail;
+
 class TomAnalise extends AnaliseAbstract
 {
     private string $comandoParaIterador = '';
@@ -51,6 +53,7 @@ class TomAnalise extends AnaliseAbstract
     private function tratarInversao(): void
     {
         if (!$this->flag->barra->status()||$this->flag->eventoModular->status()) {
+            RejectDetail::log('012', __METHOD__, __LINE__);
             $this->comandoParaIterador = 'INSERIR_EM_REPROVADO';
             return;
         }

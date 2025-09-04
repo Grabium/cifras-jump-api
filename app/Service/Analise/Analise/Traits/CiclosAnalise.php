@@ -4,6 +4,7 @@ namespace App\Service\Analise\Analise\Traits;
 
 use App\Service\Analise\Wrappers\Flag\Flag;
 use App\Service\Analise\Wrappers\Wrapper;
+use App\Service\Detail\RejectDetail;
 
 trait CiclosAnalise
 {  
@@ -29,12 +30,19 @@ trait CiclosAnalise
     private function trataIntervalos(string $acaoDoIterador): string
     {
         if(!($acaoDoIterador == 'CHAMAR_PROXIMO_CARACTERE' && $this->flag->possivelIntervalo->status())){
+            RejectDetail::log('003', __METHOD__, __LINE__);
             return $acaoDoIterador;
         }
 
         $this->acorde->intervalo->setConcat(true, '');
         $this->deduceInterval($this->acorde);
-        return $this->acorde->intervalo->hasDuplicityIntervals() ? $this->reprovado : $acaoDoIterador ;
+        
+        if($this->acorde->intervalo->hasDuplicityIntervals()){
+            RejectDetail::log('002', __METHOD__, __LINE__);
+            return $this->reprovado;
+        }
+
+        return $acaoDoIterador;
     }
 
     //simulando um __construct(Wrapper $wrapper)
@@ -81,14 +89,23 @@ trait CiclosAnalise
         $sucedeUmaBarra = $this->verificaSeSucedeUmaBarra();
         $parentesisAberto = $this->flag->parentesis->status();
         $semEvento = $this->semEventosModulares();
-        return (($parentesisAberto && $semEvento)||($sucedeUmaBarra)) ? $this->reprovado : $this->proximo;
+        if(($parentesisAberto && $semEvento)||($sucedeUmaBarra)){
+            RejectDetail::log('004', __METHOD__, __LINE__);
+            return $this->reprovado;
+        }
+        return $this->proximo;
+
     }
 
     private function fechaParentesisDuplicado(): string
     {
         $repetido = $this->sinal->matchPrev('^\)$');
         $semEvento = $this->semEventosModulares();
-        return ($repetido || $semEvento) ? $this->reprovado : $this->proximo;
+        if($repetido || $semEvento){
+            RejectDetail::log('005', __METHOD__, __LINE__);
+            return $this->reprovado;
+        }
+        return $this->proximo;
     }
 
     //Detecta duas barras em seguida.
@@ -96,7 +113,11 @@ trait CiclosAnalise
     {
         $sucedeUmaBarra = $this->verificaSeSucedeUmaBarra();
         $semEvento = $this->semEventosModulares();
-        return ($sucedeUmaBarra && $semEvento) ? $this->reprovado : $this->proximo;
+        if($sucedeUmaBarra && $semEvento){
+            RejectDetail::log('006', __METHOD__, __LINE__);
+            return $this->reprovado;
+        }
+        return $this->proximo;
     }
 
     private function verificaSeSucedeUmaBarra(): bool
@@ -114,12 +135,20 @@ trait CiclosAnalise
     {
         $intervaloComDezena = $this->flag->intervaloComDezena->status();
         $segundoAgarismoNaoEncontrado = (!$this->flag->segundoAgarismo->status());
-        return ($intervaloComDezena && $segundoAgarismoNaoEncontrado) ? $this->reprovado : $this->proximo;
+        if($intervaloComDezena && $segundoAgarismoNaoEncontrado){
+            RejectDetail::log('007', __METHOD__, __LINE__);
+            return $this->reprovado;
+        }
+        return $this->proximo;
     }
 
     //Detecta que foi digitado "#" ou "b" mas o algarismo do intervalo não surgiu.
     private function sustenidoBemolSemAlgarismo(): string
     {
-        return ($this->flag->aguardandoQualquerAlgarismo->status()) ? $this->reprovado : $this->proximo;
+        if($this->flag->aguardandoQualquerAlgarismo->status()){
+            RejectDetail::log('008', __METHOD__, __LINE__);
+            return $this->reprovado;
+        }
+        return $this->proximo;
     }
 }
