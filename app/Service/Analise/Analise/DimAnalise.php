@@ -1,7 +1,7 @@
 <?php
 namespace App\Service\Analise\Analise;
 
-use App\Service\Logs\LogReprovacao;
+use App\Service\Detail\RejectDetail;
 
 class DimAnalise extends AnaliseAbstract
 {
@@ -14,7 +14,7 @@ class DimAnalise extends AnaliseAbstract
         $dimString = substr($this->sinal->getFullString(), $this->sinal->getPosition(), 3);
 
         if($dimString != 'dim'){
-            LogReprovacao::log('010', __METHOD__, __LINE__);
+            RejectDetail::log('010', __METHOD__, __LINE__);
             return 'INSERIR_EM_REPROVADO';
         }
 

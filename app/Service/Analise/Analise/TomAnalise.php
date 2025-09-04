@@ -2,7 +2,7 @@
 
 namespace App\Service\Analise\Analise;
 
-use App\Service\Logs\LogReprovacao;
+use App\Service\Detail\RejectDetail;
 
 class TomAnalise extends AnaliseAbstract
 {
@@ -53,7 +53,7 @@ class TomAnalise extends AnaliseAbstract
     private function tratarInversao(): void
     {
         if (!$this->flag->barra->status()||$this->flag->eventoModular->status()) {
-            LogReprovacao::log('012', __METHOD__, __LINE__);
+            RejectDetail::log('012', __METHOD__, __LINE__);
             $this->comandoParaIterador = 'INSERIR_EM_REPROVADO';
             return;
         }

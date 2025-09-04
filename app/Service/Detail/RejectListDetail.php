@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\Logs;
+namespace App\Service\Detail;
 
-class LogReprovacaoList
+class RejectListDetail
 {
     public static function get(string $code, string $lang = 'pt'): string
     {
@@ -16,7 +16,7 @@ class LogReprovacaoList
             '007' => 'Aguardando o segundo algarismo para completar a análise de intervalo',
             '008' => 'Aguardando o algarismo suceder o # ou b para intervalo',
 
-            '009' => 'Sem análise para este caractere',
+            '009' => 'Caractere inesperado numa cifra',
             '010' => 'Caractere "d" inserido indevidamente',
             '011' => 'Caractere ")" inserido indevidamente',
             '012' => 'Inversão não segue adequadamente a barra',

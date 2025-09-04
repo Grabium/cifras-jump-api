@@ -5,7 +5,7 @@ use App\Service\Analise\Analise\AnaliseIterador;
 use App\Service\Entidade\Acorde\Acorde;
 use App\Service\Queues\GerenciadorQueues;
 use App\Service\Analise\Wrappers\Wrapper;
-use App\Service\Logs\LogReprovacao;
+use App\Service\Detail\RejectDetail;
 
 class Analise
 {
@@ -34,7 +34,7 @@ class Analise
         continue;
       }
 
-      LogReprovacao::acordeID($indiceAcordesAAnalisarQueue, $acorde->get());
+      RejectDetail::acordeID($indiceAcordesAAnalisarQueue, $acorde->get());
       $analiseIterador = $this->factoryAnaliseIterador($acorde);
       $acaoDoIterador = $analiseIterador->analisar();
 

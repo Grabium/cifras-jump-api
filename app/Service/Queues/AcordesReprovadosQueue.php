@@ -28,8 +28,8 @@ class AcordesReprovadosQueue
         $this->cifrasReprovadas[$indice] = ['acorde' => $acorde];
     }
 
-    public function setLog(int $indice, string $log): void
+    public function setMessage(int $indice, string $log): void
     {
-        $this->cifrasReprovadas[$indice] = ['acorde' => $this->cifrasReprovadas[$indice]['acorde'], 'log' => $log];
+        $this->cifrasReprovadas[$indice]['message'] = $log;
     }
 }

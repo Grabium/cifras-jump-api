@@ -3,7 +3,7 @@
 namespace App\Service\Analise\Analise;
 
 use App\Service\Analise\Analise\AnaliseAbstract;
-use App\Service\Logs\LogReprovacao;
+use App\Service\Detail\RejectDetail;
 
 class IntervaloAnalise extends AnaliseAbstract
 {
@@ -20,7 +20,7 @@ class IntervaloAnalise extends AnaliseAbstract
 			$acaoDoIterador = $this->$function(); //chame a função de acordo com o 1° regexs aporvado
 
 		} catch (\Throwable $th) {
-			LogReprovacao::log('015', __METHOD__, __LINE__);
+			RejectDetail::log('015', __METHOD__, __LINE__);
 			return 'INSERIR_EM_REPROVADO';
 		}
 
@@ -69,7 +69,7 @@ class IntervaloAnalise extends AnaliseAbstract
 
 		
 		if($enarmoniaDobrada || $evento){
-			LogReprovacao::log('016', __METHOD__, __LINE__);
+			RejectDetail::log('016', __METHOD__, __LINE__);
 			return 'INSERIR_EM_REPROVADO';
 		}
 
@@ -85,7 +85,7 @@ class IntervaloAnalise extends AnaliseAbstract
 		//Analisando inconsistências para dois a nove.
 		$algarismosDuplicados = (($this->flag->eventoModular->status()) && (!$this->flag->intervaloComsustenidoBemol->status()));
 		if ($algarismosDuplicados || $this->flag->intervaloComDezena->status()) {
-			LogReprovacao::log('017', __METHOD__, __LINE__);
+			RejectDetail::log('017', __METHOD__, __LINE__);
 			return 'INSERIR_EM_REPROVADO';
 		}
 
@@ -98,7 +98,7 @@ class IntervaloAnalise extends AnaliseAbstract
 	private function maisOuMenos(): string
 	{
 		if ((!$this->flag->possivelIntervalo->status()) || ($this->flag->intervaloComsustenidoBemol->status())) {
-			LogReprovacao::log('018', __METHOD__, __LINE__);
+			RejectDetail::log('018', __METHOD__, __LINE__);
 			return 'INSERIR_EM_REPROVADO';
 		}
 
@@ -115,7 +115,7 @@ class IntervaloAnalise extends AnaliseAbstract
 
 
 		if ($evento && $susBemolFechado) {
-			LogReprovacao::log('019', __METHOD__, __LINE__);
+			RejectDetail::log('019', __METHOD__, __LINE__);
 			return 'INSERIR_EM_REPROVADO';
 		}
 

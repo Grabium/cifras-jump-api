@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Service\Logs;
+namespace App\Service\Detail;
 
-class LogReprovacao
+class RejectDetail
 {
     /**
-    * Create a new class instance.
-    * Furturamente a lista devereá vir do DB.
-    **/
+     * Create a new class instance.
+     * Furturamente a lista devereá vir do DB.
+     **/
 
     private static string $sinal;
     private static int|string $indiceAcordesAAnalisarQueue;
     private static array $logContent;
 
-    private function __construct(){}
+    private function __construct() {}
 
     //Analise
     public static function acordeID(int $indiceAcordesAAnalisarQueue, string $sinal)
@@ -29,24 +29,39 @@ class LogReprovacao
         self::$indiceAcordesAAnalisarQueue = '';
         self::$logContent = [];
     }
-    
+
 
     //ConcretesAnalise
     public static function log(string $codeMessage, string $method, string $line): void
     {
-        
+
         $methodAndLine = "In $method" ?? "";
         $methodAndLine .= " - In line: $line." ?? "";
 
-        $cause = LogReprovacaoList::get($codeMessage);
-        $message = "The chord '".self::$sinal."' (index: ".self::$indiceAcordesAAnalisarQueue.") was rejected. Cause: $cause.";
+        $indexCharater = self::getIndexCharater();
+
+        $cause = RejectListDetail::get($codeMessage);
+        $message = "The text part '" . self::$sinal . "' (" .$indexCharater." character) is not a cypher correctly written. Cause: $cause.";
 
         self::$logContent = ['message' => $message, 'methodAndLine' => $methodAndLine];
+    }
+
+    private static function getIndexCharater(): string
+    {
+        $ordinal = ['1' => 'st', '2'=>'nd', '3'=>'rd'];
+
+        try {
+            $indexCharater = self::$indiceAcordesAAnalisarQueue.$ordinal[self::$indiceAcordesAAnalisarQueue[-1]];
+        } catch (\Throwable $th) {
+            $indexCharater = self::$indiceAcordesAAnalisarQueue.'th';
+        }
+
+        return $indexCharater;
     }
 
     //FinalSet/Negativo
     public static function getMessage(bool $dump = false): string
     {
-        return ($dump) ? self::$logContent['message'].' '.self::$logContent['methodAndLine']: self::$logContent['message'];
+        return ($dump) ? self::$logContent['message'] . ' ' . self::$logContent['methodAndLine'] : self::$logContent['message'];
     }
 }
