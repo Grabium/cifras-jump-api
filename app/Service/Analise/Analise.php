@@ -18,9 +18,10 @@ class Analise
     $this->analiseList = new AnaliseList()->get();   
   }
 
-  private function factoryAnaliseIterador(Acorde $acorde):AnaliseIterador
+  public function factoryAnaliseIterador(Acorde $acorde, int $indiceAcordesAAnalisarQueue):AnaliseIterador
   {
     $wrapper = new Wrapper($acorde);
+    RejectDetail::acordeID($indiceAcordesAAnalisarQueue, $acorde->get());
     return new AnaliseIterador($wrapper, $this->analiseList);
   }
 
@@ -34,8 +35,8 @@ class Analise
         continue;
       }
 
-      RejectDetail::acordeID($indiceAcordesAAnalisarQueue, $acorde->get());
-      $analiseIterador = $this->factoryAnaliseIterador($acorde);
+      
+      $analiseIterador = $this->factoryAnaliseIterador($acorde, $indiceAcordesAAnalisarQueue);
       $acaoDoIterador = $analiseIterador->analisar();
 
       switch ($acaoDoIterador) {

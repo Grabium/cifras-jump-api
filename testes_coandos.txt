@@ -3,10 +3,10 @@
 
 
 #teste unitário padrão
-#./vendor/bin/phpunit ./tests
+./vendor/bin/phpunit ./tests
 
 #ignorando um grupo
-#./vendor/bin/phpunit ./tests/Unit --exclude-group ignored
+./vendor/bin/phpunit ./tests/Unit --exclude-group ignored
 
 #teste verboso:
 Write-Output "
@@ -15,4 +15,4 @@ Rodando testes verborsos por artisan:
 php artisan test
 
 #grupo unitário
-#./vendor/bin/phpunit ./tests/Unit -group unitarios
+./vendor/bin/phpunit ./tests/Unit -group unitarios

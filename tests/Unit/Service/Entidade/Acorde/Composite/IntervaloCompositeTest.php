@@ -7,10 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class IntervaloCompositeTest extends TestCase
 {
-    /**
-     * @dataProvider dataProviders
-     * @group unitarios
-     */
+    #[DataProvider('dataProviders')]
     public function testInserirApenasUmIntervalo(mixed $key, string $expected): void
     {
         $intervalo = new IntervaloComposite();
@@ -20,9 +17,8 @@ class IntervaloCompositeTest extends TestCase
         }else{
             $intervalo->set($key);
         }
-        
 
-        $this->assertSame($expected, $intervalo->get());
+        $this->assertEquals($expected, $intervalo->get());
     }
 
     public static function dataProviders(): array

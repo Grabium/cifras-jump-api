@@ -23,7 +23,7 @@ class AnaliseIterador extends AnaliseAbstract
     {
 
         while(true){
-            
+
             $caractere = $this->sinal->getCurrent();
             
             //dump($caractere);

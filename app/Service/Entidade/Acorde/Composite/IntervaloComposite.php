@@ -12,7 +12,7 @@ class IntervaloComposite extends Composite
             return;
         }
 
-        if (!empty($this->sinais) && $this->sinais[0] === 'NaoTestado') {
+        if ((!empty($this->sinais)) && ($this->sinais[0] === 'NaoTestado')) {
             $this->sinais[0] = $key;
             return;
         }
@@ -68,6 +68,7 @@ class IntervaloComposite extends Composite
         return false;
     }
 
+    //para manter a semântica, pois sinal é um array.
     public function getString(): string
     {
         $intervalo = '';
@@ -77,6 +78,12 @@ class IntervaloComposite extends Composite
         }
 
         return $intervalo;
+    }
+
+    //apenas para fazer a sobrescrita do parent:: 
+    public function get(): string
+    {
+        return $this->getString();
     }
 
     public function getEnd()
