@@ -16,3 +16,8 @@ php artisan test
 
 #grupo unitário
 ./vendor/bin/phpunit ./tests/Unit -group unitarios
+
+
+./vendor/bin/phpunit tests/Unit/service/Analise/Analise/AnaliseIteradorTest.php
+
+./vendor/bin/phpunit --testdox tests/Unit/

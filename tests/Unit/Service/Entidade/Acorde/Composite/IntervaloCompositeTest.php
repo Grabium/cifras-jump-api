@@ -1,21 +1,29 @@
-<?php 
+<?php declare(strict_types=1);
 namespace Tests\Unit\Service\Entidade\Acorde\Composite;
 
 use App\Service\Entidade\Acorde\Composite\IntervaloComposite;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+
+
+/**
+ * Roda com o comando:
+ * ./vendor/bin/phpunit --testdox tests/Unit/Service/Entidade/Acorde/Composite/IntervaloCompositeTest.php
+ */
 
 class IntervaloCompositeTest extends TestCase
 {
     #[DataProvider('dataProviders')]
-    public function testInserirApenasUmIntervalo(mixed $key, string $expected): void
+    #[TestDox('Inserindo o intervalo $actual e retornando $expected.')]
+    public function testInserirApenasUmIntervalo(mixed $actual, string $expected): void
     {
         $intervalo = new IntervaloComposite();
 
-        if($key == null){
+        if($actual == null){
             $intervalo->set();
         }else{
-            $intervalo->set($key);
+            $intervalo->set($actual);
         }
 
         $this->assertEquals($expected, $intervalo->get());

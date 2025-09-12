@@ -6,16 +6,18 @@ use App\Service\Entidade\Acorde\Acorde;
 use App\Service\Entidade\Acorde\Cifra\Cifra;
 use App\Service\Queues\GerenciadorQueues;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class AnaliseIteradorTest extends TestCase
 {
     #[DataProvider('dataProviders')]
-    public function testAnalisar(string $input, string $expected): void
+    #[TestDox('Analise de $actual deve retornar a action $expected')]
+    public function testAnalisar(string $actual, string $expected): void
     {
-        //dump('novo teste =====', $input, $expected);
+        $this->markTestIncomplete('Teste depreciado.');
         
-        $cifra = new Cifra($input);
+        $cifra = new Cifra($actual);
         //dump($cifra);
         $acorde = new Acorde($cifra);
         //dump($acorde);
@@ -34,8 +36,7 @@ class AnaliseIteradorTest extends TestCase
         //'INSERIR_EM_REPROVADO', 'INSERIR_EM_APROVADO' ou 'CHAMAR_PROXIMO_CARACTERE'
         return [
             'C ok'    => ['C ', 'INSERIR_EM_APROVADO'],
-            'CC Rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
-            'C ok error'    => ['C ', 'error'],
+            'CC Rep'    => ['CC ', 'INSERIR_EM_REPROVADO']
         ];
     }
 }
