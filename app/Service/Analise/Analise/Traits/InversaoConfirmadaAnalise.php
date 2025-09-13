@@ -7,6 +7,10 @@ use App\Service\Detail\RejectDetail;
 
 trait InversaoConfirmadaAnalise
 {
+
+    const   PROXIMO = 'CHAMAR_PROXIMO_CARACTERE';
+    const REPROVADO = 'INSERIR_EM_REPROVADO';
+
     public function verificarInversaoConfirmada(Wrapper $wrapper, string $nomeDaClasseDeAnalise): string
     {
         $this->inserirDependencias($wrapper);
@@ -15,10 +19,10 @@ trait InversaoConfirmadaAnalise
 
         if($this->flag->inversaoConfirmada->status() && $gatilhoReprovado){
             RejectDetail::log('001', __METHOD__, __LINE__);
-            return $this->reprovado;
+            return self::REPROVADO;
         }
 
-        return $this->proximo;
+        return self::PROXIMO;
     }
 
     //simulando um __construct(Wrapper $wrapper)
@@ -28,8 +32,6 @@ trait InversaoConfirmadaAnalise
         $this->flag = $wrapper->getFlag();
         $this->sinal = $wrapper->getIterador();
         $this->wrapperMemento = $wrapper;
-        $this->proximo = 'CHAMAR_PROXIMO_CARACTERE';
-        $this->reprovado = 'INSERIR_EM_REPROVADO';
     }
 
     private function getGatilhosPermitidos(): array

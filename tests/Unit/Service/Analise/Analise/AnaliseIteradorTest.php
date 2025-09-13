@@ -9,14 +9,14 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
+//./vendor/bin/phpunit --testdox Tests/Unit/Service/Analise/Analise/AnaliseIteradorTest.php
+
 class AnaliseIteradorTest extends TestCase
 {
     #[DataProvider('dataProviders')]
     #[TestDox('Analise de $actual deve retornar a action $expected')]
     public function testAnalisar(string $actual, string $expected): void
-    {
-        $this->markTestIncomplete('Teste depreciado.');
-        
+    {        
         $cifra = new Cifra($actual);
         //dump($cifra);
         $acorde = new Acorde($cifra);
@@ -35,8 +35,9 @@ class AnaliseIteradorTest extends TestCase
 
         //'INSERIR_EM_REPROVADO', 'INSERIR_EM_APROVADO' ou 'CHAMAR_PROXIMO_CARACTERE'
         return [
-            'C ok'    => ['C ', 'INSERIR_EM_APROVADO'],
-            'CC Rep'    => ['CC ', 'INSERIR_EM_REPROVADO']
+            'C ok'    => ['C ', 'INSERIR_EM_APROVADO'],//TRAVA O TESTE SEM O ESPAÇO NO FINAL. 
+            'CC Rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+
         ];
     }
 }

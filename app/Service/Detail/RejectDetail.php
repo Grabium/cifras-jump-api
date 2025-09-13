@@ -46,17 +46,18 @@ class RejectDetail
         self::$logContent = ['message' => $message, 'methodAndLine' => $methodAndLine];
     }
 
+    //incompleto, pois não leva em consideraçao os números como 11, 12, 21 ,22 ...
     private static function getIndexCharater(): string
     {
         $ordinal = ['1' => 'st', '2'=>'nd', '3'=>'rd'];
 
         try {
-            $indexCharater = self::$indiceAcordesAAnalisarQueue.$ordinal[self::$indiceAcordesAAnalisarQueue[-1]];
+            $indexCharater = self::$indiceAcordesAAnalisarQueue.$ordinal[self::$indiceAcordesAAnalisarQueue];
         } catch (\Throwable $th) {
             $indexCharater = self::$indiceAcordesAAnalisarQueue.'th';
+        }finally{
+            return $indexCharater;
         }
-
-        return $indexCharater;
     }
 
     //FinalSet/Negativo
