@@ -20,7 +20,7 @@ class IntervaloAnalise extends AnaliseAbstract
 			$acaoDoIterador = $this->$function(); //chame a função de acordo com o 1° regexs aporvado
 
 		} catch (\Throwable $th) {
-			RejectDetail::log('015', __METHOD__, __LINE__);
+			RejectDetail::log('015', __METHOD__, __LINE__, $this->sinal->getFullString());
 			return 'INSERIR_EM_REPROVADO';
 		}
 
@@ -64,12 +64,12 @@ class IntervaloAnalise extends AnaliseAbstract
 	private function sustenidoBemol(): string
 	{
 		//$enarmoniaDobrada => reprova acordes com esta regex: [ABCDEFG][#b][#b][2345679]... ex: Ab#9...
-		$enarmoniaDobrada = in_array($this->acorde->enarmoniaFundamental->get(), ['b', '#']) && $this->sinal->equalsPosition(2);
+		$enarmoniaDobrada = in_array($this->acorde->getEnarmoniaFundamental(), ['b', '#']) && $this->sinal->equalsPosition(2);
 		$evento = $this->flag->eventoModular->status();
 
 		
 		if($enarmoniaDobrada || $evento){
-			RejectDetail::log('016', __METHOD__, __LINE__);
+			RejectDetail::log('016', __METHOD__, __LINE__, $this->sinal->getFullString());
 			return 'INSERIR_EM_REPROVADO';
 		}
 
@@ -85,7 +85,7 @@ class IntervaloAnalise extends AnaliseAbstract
 		//Analisando inconsistências para dois a nove.
 		$algarismosDuplicados = (($this->flag->eventoModular->status()) && (!$this->flag->intervaloComsustenidoBemol->status()));
 		if ($algarismosDuplicados || $this->flag->intervaloComDezena->status()) {
-			RejectDetail::log('017', __METHOD__, __LINE__);
+			RejectDetail::log('017', __METHOD__, __LINE__, $this->sinal->getFullString());
 			return 'INSERIR_EM_REPROVADO';
 		}
 
@@ -98,7 +98,7 @@ class IntervaloAnalise extends AnaliseAbstract
 	private function maisOuMenos(): string
 	{
 		if ((!$this->flag->possivelIntervalo->status()) || ($this->flag->intervaloComsustenidoBemol->status())) {
-			RejectDetail::log('018', __METHOD__, __LINE__);
+			RejectDetail::log('018', __METHOD__, __LINE__, $this->sinal->getFullString());
 			return 'INSERIR_EM_REPROVADO';
 		}
 
@@ -115,7 +115,7 @@ class IntervaloAnalise extends AnaliseAbstract
 
 
 		if ($evento && $susBemolFechado) {
-			RejectDetail::log('019', __METHOD__, __LINE__);
+			RejectDetail::log('019', __METHOD__, __LINE__, $this->sinal->getFullString());
 			return 'INSERIR_EM_REPROVADO';
 		}
 

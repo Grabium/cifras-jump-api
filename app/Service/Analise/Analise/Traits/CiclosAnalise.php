@@ -32,15 +32,15 @@ trait CiclosAnalise
     private function trataIntervalos(string $acaoDoIterador): string
     {
         if(!($acaoDoIterador == 'CHAMAR_PROXIMO_CARACTERE' && $this->flag->possivelIntervalo->status())){
-            RejectDetail::log('003', __METHOD__, __LINE__);
+            RejectDetail::log('003', __METHOD__, __LINE__, $this->acorde->get());
             return $acaoDoIterador;
         }
 
-        $this->acorde->intervalo->setConcat(true, '');
+        $this->acorde->setIntervalo(true, '');
         $this->deduceInterval($this->acorde);
         
-        if($this->acorde->intervalo->hasDuplicityIntervals()){
-            RejectDetail::log('002', __METHOD__, __LINE__);
+        if($this->acorde->hasDuplicityIntervals()){
+            RejectDetail::log('002', __METHOD__, __LINE__, $this->acorde->get());
             return self::REPROVADO;
         }
 
@@ -89,7 +89,7 @@ trait CiclosAnalise
         $parentesisAberto = $this->flag->parentesis->status();
         $semEvento = $this->semEventosModulares();
         if(($parentesisAberto && $semEvento)||($sucedeUmaBarra)){
-            RejectDetail::log('004', __METHOD__, __LINE__);
+            RejectDetail::log('004', __METHOD__, __LINE__, $this->acorde->get());
             return self::REPROVADO;
         }
         return self::PROXIMO;
@@ -101,7 +101,7 @@ trait CiclosAnalise
         $repetido = $this->sinal->matchPrev('^\)$');
         $semEvento = $this->semEventosModulares();
         if($repetido || $semEvento){
-            RejectDetail::log('005', __METHOD__, __LINE__);
+            RejectDetail::log('005', __METHOD__, __LINE__, $this->acorde->get());
             return self::REPROVADO;
         }
         return self::PROXIMO;
@@ -113,7 +113,7 @@ trait CiclosAnalise
         $sucedeUmaBarra = $this->verificaSeSucedeUmaBarra();
         $semEvento = $this->semEventosModulares();
         if($sucedeUmaBarra && $semEvento){
-            RejectDetail::log('006', __METHOD__, __LINE__);
+            RejectDetail::log('006', __METHOD__, __LINE__, $this->acorde->get());
             return self::REPROVADO;
         }
         return self::PROXIMO;
@@ -135,7 +135,7 @@ trait CiclosAnalise
         $intervaloComDezena = $this->flag->intervaloComDezena->status();
         $segundoAgarismoNaoEncontrado = (!$this->flag->segundoAgarismo->status());
         if($intervaloComDezena && $segundoAgarismoNaoEncontrado){
-            RejectDetail::log('007', __METHOD__, __LINE__);
+            RejectDetail::log('007', __METHOD__, __LINE__, $this->acorde->get());
             return self::REPROVADO;
         }
         return self::PROXIMO;
@@ -145,7 +145,7 @@ trait CiclosAnalise
     private function sustenidoBemolSemAlgarismo(): string
     {
         if($this->flag->aguardandoQualquerAlgarismo->status()){
-            RejectDetail::log('008', __METHOD__, __LINE__);
+            RejectDetail::log('008', __METHOD__, __LINE__, $this->acorde->get());
             return self::REPROVADO;
         }
         return self::PROXIMO;

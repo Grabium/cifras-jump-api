@@ -53,13 +53,13 @@ class TomAnalise extends AnaliseAbstract
     private function tratarInversao(): void
     {
         if (!$this->flag->barra->status()||$this->flag->eventoModular->status()) {
-            RejectDetail::log('012', __METHOD__, __LINE__);
+            RejectDetail::log('012', __METHOD__, __LINE__, $this->sinal->getFullString());
             $this->comandoParaIterador = 'INSERIR_EM_REPROVADO';
             return;
         }
 
-        $this->setEnarmonia('enarmoniaInversao');
-        $this->setCifra('inversao');
+        $this->setEnarmonia('EnarmoniaInversao');
+        $this->setCifra('Inversao');
         $this->flag->eventoModular->abrir();
         $this->flag->inversaoConfirmada->abrir();
     }
@@ -67,11 +67,13 @@ class TomAnalise extends AnaliseAbstract
     private function setEnarmonia(string $atributoDoAcordeParaAlterar): void
     {
         $enarmonia = ($this->seEnarmonico) ? $this->tom[1] : 'natural';
-        $this->acorde->$atributoDoAcordeParaAlterar->set($enarmonia);
+        $atributoDoAcordeParaAlterar = 'set'.$atributoDoAcordeParaAlterar;
+        $this->acorde->$atributoDoAcordeParaAlterar($enarmonia);
     }
 
     private function setCifra(string $atributoDoAcordeParaAlterar): void
     {
-        $this->acorde->cifraOriginal->$atributoDoAcordeParaAlterar->set($this->tom);
+        $atributoDoAcordeParaAlterar = 'set'.$atributoDoAcordeParaAlterar;
+        $this->acorde->$atributoDoAcordeParaAlterar($this->tom);
     }
 }

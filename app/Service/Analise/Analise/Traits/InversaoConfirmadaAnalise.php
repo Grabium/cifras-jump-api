@@ -18,7 +18,7 @@ trait InversaoConfirmadaAnalise
         $gatilhoReprovado = (!in_array($nomeDaClasseDeAnalise, $this->getGatilhosPermitidos()));
 
         if($this->flag->inversaoConfirmada->status() && $gatilhoReprovado){
-            RejectDetail::log('001', __METHOD__, __LINE__);
+            RejectDetail::log('001', __METHOD__, __LINE__, $this->acode->get());
             return self::REPROVADO;
         }
 

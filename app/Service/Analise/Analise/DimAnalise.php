@@ -14,12 +14,12 @@ class DimAnalise extends AnaliseAbstract
         $dimString = substr($this->sinal->getFullString(), $this->sinal->getPosition(), 3);
 
         if($dimString != 'dim'){
-            RejectDetail::log('010', __METHOD__, __LINE__);
+            RejectDetail::log('010', __METHOD__, __LINE__, $this->sinal->getFullString());
             return 'INSERIR_EM_REPROVADO';
         }
 
-        $this->acorde->terca->set('menor');
-        $this->acorde->quinta->set('diminuta');
+        $this->acorde->setTerca('menor');
+        $this->acorde->setQuinta('diminuta');
         
         return 3;
     }

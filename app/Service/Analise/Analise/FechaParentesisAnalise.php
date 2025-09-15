@@ -17,7 +17,7 @@ class FechaParentesisAnalise extends AnaliseAbstract
         }
 
         if(!$this->flag->parentesis->status()){
-            RejectDetail::log('011', __METHOD__, __LINE__);
+            RejectDetail::log('011', __METHOD__, __LINE__, $this->sinal->getFullString());
             return 'INSERIR_EM_REPROVADO';
         }
 

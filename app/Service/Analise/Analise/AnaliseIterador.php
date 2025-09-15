@@ -33,7 +33,7 @@ class AnaliseIterador extends AnaliseAbstract
                 $nomeDaClasseAnalise = 'App\\Service\\Analise\\Analise\\'.$this->analiseList[$caractere];
             
             } catch (\Throwable $th) {
-                RejectDetail::log('009', __METHOD__, __LINE__);
+                RejectDetail::log('009', __METHOD__, __LINE__, $this->sinal->getFullString());
                 return 'INSERIR_EM_REPROVADO';
             }
 

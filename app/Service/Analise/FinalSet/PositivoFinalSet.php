@@ -9,31 +9,31 @@ class PositivoFinalSet extends FinalSet
     public function deduce(Acorde $acorde)
     {
 
-        if($acorde->enarmoniaFundamental->get() == 'NaoTestado'){
-            $acorde->enarmoniaFundamental->set('natural');
+        if($acorde->getEnarmoniaFundamental() == 'NaoTestado'){
+            $acorde->setEnarmoniaFundamental('natural');
         }
 
-        if($acorde->enarmoniaInversao->get() == 'NaoTestado'){
+        if($acorde->getEnarmoniaInversao() == 'NaoTestado'){
             unset($acorde->enarmoniaInversao);
         }
 
-        if($acorde->cifraOriginal->inversao->get() == 'NaoTestado'){
-            $acorde->cifraOriginal->inversao->set('fundamental');
+        if($acorde->getInversao() == 'NaoTestado'){
+            $acorde->setInversao('fundamental');
         }
 
-        if($acorde->terca->get() == 'NaoTestado'){
-            $acorde->terca->set('maior');
+        if($acorde->getTerca() == 'NaoTestado'){
+            $acorde->setTerca('maior');
         }
 
-        if($acorde->quinta->get() == 'NaoTestado'){
-            $acorde->quinta->set('justa');
+        if($acorde->getQuinta() == 'NaoTestado'){
+            $acorde->setQuinta('justa');
         }
 
-        if($acorde->setima->get() == 'NaoTestado'){
-            unset($acorde->setima);
+        if($acorde->getSetima() == 'NaoTestado'){
+            unset($acorde->setSetima);
         }
 
-        if($acorde->intervalo->getString() == 'NaoTestado'){
+        if($acorde->getIntervalo() == 'NaoTestado'){
             unset($acorde->intervalo);
         }
     }

@@ -3,7 +3,6 @@
 namespace App\Service\Queues;
 
 use App\Service\Entidade\Acorde\Acorde;
-use App\Service\Entidade\Acorde\Cifra\Cifra;
 
 class AcordesAAnalisarQueue
 {
@@ -17,14 +16,15 @@ class AcordesAAnalisarQueue
         $this->acordes = [];
 
         foreach($matches[0] as $match){
-            $cifra = new Cifra($match[0]);
-            $this->acordes[$match[1]] = new Acorde($cifra);
+            $acorde = new Acorde();
+            $acorde->set($match[0]);
+            $this->acordes[$match[1]] = $acorde;
         }
 
         return $this->acordes;
     }
 
-    public function get(null|int $indice=null)
+    public function get(null|int $indice=null): Acorde|array
     {
         return (is_int($indice)) ? $this->acordes[$indice] : $this->acordes;
     }

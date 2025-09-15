@@ -3,7 +3,6 @@ namespace Tests\Unit\Service\Analise\Analise;
 
 use App\Service\Analise\Analise;
 use App\Service\Entidade\Acorde\Acorde;
-use App\Service\Entidade\Acorde\Cifra\Cifra;
 use App\Service\Queues\GerenciadorQueues;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -17,9 +16,8 @@ class AnaliseIteradorTest extends TestCase
     #[TestDox('Analise de $actual deve retornar a action $expected')]
     public function testAnalisar(string $actual, string $expected): void
     {        
-        $cifra = new Cifra($actual);
-        //dump($cifra);
-        $acorde = new Acorde($cifra);
+        $acorde = new Acorde();
+        $acorde->set($actual);
         //dump($acorde);
         $indiceAcordesAAnalisarQueue = 1;
         $analise = new Analise(new GerenciadorQueues());
@@ -34,9 +32,45 @@ class AnaliseIteradorTest extends TestCase
     {
 
         //'INSERIR_EM_REPROVADO', 'INSERIR_EM_APROVADO' ou 'CHAMAR_PROXIMO_CARACTERE'
+
+
         return [
-            'C ok'    => ['C ', 'INSERIR_EM_APROVADO'],//TRAVA O TESTE SEM O ESPAÇO NO FINAL. 
-            'CC Rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'C - apr'    => ['C ', 'INSERIR_EM_APROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
+            'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],
 
         ];
     }

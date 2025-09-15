@@ -2,8 +2,6 @@
 
 namespace App\Service\Queues;
 
-use App\Service\Analise\FinalMatch\NegativoFinalMatch;
-use App\Service\Analise\FinalMatch\PositivoFinalMatch;
 use App\Service\Analise\FinalSet\NegativoFinalSet;
 use App\Service\Analise\FinalSet\PositivoFinalSet;
 use App\Service\Entidade\Acorde\Acorde;
@@ -73,6 +71,5 @@ class GerenciadorQueues
         (new NegativoFinalSet())->deduce($acorde);
         $this->acordesReprovadosQueue->inserir($indice, $acorde);
         $this->acordesReprovadosQueue->setMessage($indice, RejectDetail::getMessage());
-        //$this->acordesReprovadosQueue->setLog($indice, RejectDetail::getMessage(true));
     }
 }

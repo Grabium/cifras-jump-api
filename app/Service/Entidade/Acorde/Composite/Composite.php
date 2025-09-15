@@ -36,7 +36,7 @@ abstract class Composite
             $this->validate($key);
 
         } catch (\InvalidArgumentException $err) {
-            echo $err->getMessage() . PHP_EOL;
+            $salvarEmDbComoLog = $err->getMessage() . PHP_EOL;
             return false;
         }
 

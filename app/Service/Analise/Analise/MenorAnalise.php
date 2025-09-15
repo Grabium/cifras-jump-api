@@ -12,11 +12,11 @@ class MenorAnalise extends AnaliseAbstract
             return 'INSERIR_EM_REPROVADO';
         }
 
-        $enarmonia = $this->acorde->enarmoniaFundamental->get();
-        $terca = $this->acorde->terca->get();
+        $enarmonia = $this->acorde->getEnarmoniaFundamental();
+        $terca = $this->acorde->getTerca();
 
         if($terca != 'NaoTestado'){
-            RejectDetail::log('013', __METHOD__, __LINE__);
+            RejectDetail::log('013', __METHOD__, __LINE__, $this->sinal->getFullString());
             return 'INSERIR_EM_REPROVADO';
         }
 
@@ -26,11 +26,11 @@ class MenorAnalise extends AnaliseAbstract
         //dump($falhar, $falhou, $enarmonia, $terca);
         
         if($falhou){
-            RejectDetail::log('014', __METHOD__, __LINE__);
+            RejectDetail::log('014', __METHOD__, __LINE__, $this->sinal->getFullString());
             return 'INSERIR_EM_REPROVADO';
         }
 
-        $this->acorde->terca->set('menor');
+        $this->acorde->setTerca('menor');
 
         return 'CHAMAR_PROXIMO_CARACTERE';
     }

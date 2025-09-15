@@ -9,30 +9,27 @@ class RejectDetail
      * Furturamente a lista devereá vir do DB.
      **/
 
-    private static string $sinal;
     private static int|string $indiceAcordesAAnalisarQueue;
     private static array $logContent;
 
     private function __construct() {}
 
     //Analise
-    public static function acordeID(int $indiceAcordesAAnalisarQueue, string $sinal)
+    public static function acordeID(int $indiceAcordesAAnalisarQueue)
     {
         self::reset();
         self::$indiceAcordesAAnalisarQueue = $indiceAcordesAAnalisarQueue;
-        self::$sinal = $sinal;
     }
 
     private static function reset(): void
     {
-        self::$sinal = '';
         self::$indiceAcordesAAnalisarQueue = '';
         self::$logContent = [];
     }
 
 
     //ConcretesAnalise
-    public static function log(string $codeMessage, string $method, string $line): void
+    public static function log(string $codeMessage, string $method, string $line, string $sinal): void
     {
 
         $methodAndLine = "In $method" ?? "";
@@ -41,7 +38,14 @@ class RejectDetail
         $indexCharater = self::getIndexCharater();
 
         $cause = RejectListDetail::get($codeMessage);
-        $message = "The text part '" . self::$sinal . "' (" .$indexCharater." character) is not a cypher correctly written. Cause: $cause.";
+
+        $message = "The text part '" . $sinal . "'";
+
+        if(self::$indiceAcordesAAnalisarQueue != ''){
+            $message .= "($indexCharater character)";
+        }
+
+        $message .= "  is not a cypher correctly written. Cause: $cause.";
 
         self::$logContent = ['message' => $message, 'methodAndLine' => $methodAndLine];
     }

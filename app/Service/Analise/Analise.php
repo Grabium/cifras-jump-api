@@ -21,7 +21,7 @@ class Analise
   public function factoryAnaliseIterador(Acorde $acorde, int $indiceAcordesAAnalisarQueue):AnaliseIterador
   {
     $wrapper = new Wrapper($acorde);
-    RejectDetail::acordeID($indiceAcordesAAnalisarQueue, $acorde->get());
+    RejectDetail::acordeID($indiceAcordesAAnalisarQueue);
     return new AnaliseIterador($wrapper, $this->analiseList);
   }
 
