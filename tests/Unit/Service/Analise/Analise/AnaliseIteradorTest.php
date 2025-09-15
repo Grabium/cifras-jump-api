@@ -1,9 +1,9 @@
 <?php 
 namespace Tests\Unit\Service\Analise\Analise;
 
-use App\Service\Analise\Analise;
+use App\Service\Analise\Analise\AnaliseIterador;
+use App\Service\Analise\Wrappers\Wrapper;
 use App\Service\Entidade\Acorde\Acorde;
-use App\Service\Queues\GerenciadorQueues;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -18,12 +18,10 @@ class AnaliseIteradorTest extends TestCase
     {        
         $acorde = new Acorde();
         $acorde->set($actual);
-        //dump($acorde);
-        $indiceAcordesAAnalisarQueue = 1;
-        $analise = new Analise(new GerenciadorQueues());
-        //dump($analise);
-        $analiseIterador = $analise->factoryAnaliseIterador($acorde, $indiceAcordesAAnalisarQueue);
-        //dump($analiseIterador);
+        $wrapper = new Wrapper($acorde);
+        $analiseIterador = new AnaliseIterador($wrapper);
+
+        
 
         $this->assertEquals($expected, $analiseIterador->analisar());
     }
@@ -32,8 +30,6 @@ class AnaliseIteradorTest extends TestCase
     {
 
         //'INSERIR_EM_REPROVADO', 'INSERIR_EM_APROVADO' ou 'CHAMAR_PROXIMO_CARACTERE'
-
-
         return [
             'C - apr'    => ['C ', 'INSERIR_EM_APROVADO'],
             'CC - rep'    => ['CC ', 'INSERIR_EM_REPROVADO'],

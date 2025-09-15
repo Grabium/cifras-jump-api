@@ -7,7 +7,7 @@ class AnaliseList
     /**
      * Fornece a lista de classes Analise e seus gatilhos nos indices.
      */
-    public function get()
+    public static function get()
     {
         return[
             "A"=>"TomAnalise",

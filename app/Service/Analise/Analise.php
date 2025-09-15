@@ -10,19 +10,17 @@ use App\Service\Detail\RejectDetail;
 class Analise
 {
   private GerenciadorQueues $queues;
-  private array $analiseList = [];
 
   public function __construct(GerenciadorQueues $queues)
   {
-    $this->queues = $queues;
-    $this->analiseList = new AnaliseList()->get();   
+    $this->queues = $queues; 
   }
 
   public function factoryAnaliseIterador(Acorde $acorde, int $indiceAcordesAAnalisarQueue):AnaliseIterador
   {
     $wrapper = new Wrapper($acorde);
     RejectDetail::acordeID($indiceAcordesAAnalisarQueue);
-    return new AnaliseIterador($wrapper, $this->analiseList);
+    return new AnaliseIterador($wrapper);
   }
 
   public function run():array

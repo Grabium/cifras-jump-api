@@ -9,8 +9,8 @@ class RejectDetail
      * Furturamente a lista devereá vir do DB.
      **/
 
-    private static int|string $indiceAcordesAAnalisarQueue;
-    private static array $logContent;
+    private static int|string $indiceAcordesAAnalisarQueue = '';
+    private static array $logContent = [];
 
     private function __construct() {}
 
@@ -35,14 +35,17 @@ class RejectDetail
         $methodAndLine = "In $method" ?? "";
         $methodAndLine .= " - In line: $line." ?? "";
 
-        $indexCharater = self::getIndexCharater();
+        
 
         $cause = RejectListDetail::get($codeMessage);
 
         $message = "The text part '" . $sinal . "'";
 
         if(self::$indiceAcordesAAnalisarQueue != ''){
+            
+            $indexCharater = self::getIndexCharater();
             $message .= "($indexCharater character)";
+
         }
 
         $message .= "  is not a cypher correctly written. Cause: $cause.";
