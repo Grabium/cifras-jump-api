@@ -25,21 +25,15 @@ class AnaliseIterador extends AnaliseAbstract
 
             $caractere = $this->sinal->getCurrent();
             
-            //dump($caractere);
-
-            try {
-
-                $nomeDaClasseAnalise = 'App\\Service\\Analise\\Analise\\'.AnaliseList::get()[$caractere];
-            
-            } catch (\Throwable $th) {
+            if(!array_key_exists($caractere, AnaliseList::get())){
                 RejectDetail::log('009', __METHOD__, __LINE__, $this->sinal->getFullString());
                 return 'INSERIR_EM_REPROVADO';
             }
 
+            $nomeDaClasseAnalise = 'App\\Service\\Analise\\Analise\\'.AnaliseList::get()[$caractere];
             $this->analise = new $nomeDaClasseAnalise($this->wrapperMemento, $nomeDaClasseAnalise);
                     
             $acaoDoIterador = $this->analise->analisar();
-            //dump($acaoDoIterador);
             
             switch ($acaoDoIterador) {
 

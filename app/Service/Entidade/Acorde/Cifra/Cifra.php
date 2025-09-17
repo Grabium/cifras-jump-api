@@ -20,12 +20,19 @@ class Cifra
         $this->enarmoniaInversao = new EnarmoniaComposite();
     }
 
-    public function setSinal(string $sinal): void
+    private function isValid(string $sinal): bool
     {
-        if(($sinal[strlen($sinal)-1]) != ' '){
-            throw new \TypeError("Cifra $sinal não possui SPACE CHARACTER no final. Gerará resultado inconsistente.");
+        return (($sinal[strlen($sinal)-1]) === ' ' );
+        //throw new \TypeError("Cifra $sinal não possui SPACE CHARACTER no final. Gerará resultado inconsistente.");
+    }
+
+    public function setSinal(string $sinal, bool $force = false): void
+    {
+        if($force){
+            $this->sinal = ($this->isValid($sinal)) ? $sinal : $sinal.' ';
+            return;
         }
-        $this->sinal = $sinal;
+        $this->sinal = ($this->isValid($sinal)) ? $sinal : 'INVALID ';
     }
 
     public function getSinal():string

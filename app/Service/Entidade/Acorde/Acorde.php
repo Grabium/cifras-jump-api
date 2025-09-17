@@ -31,18 +31,18 @@ class Acorde
         
     }
 
-    public function set(string $sinal):void
+    public function set(string $sinal, bool $force = false):void
     {
-        try {
+        //try {
 
-            $this->cifraOriginal->setSinal($sinal);
+            $this->cifraOriginal->setSinal($sinal, $force);
 
-        } catch (\Throwable $th) {
+        /*} catch (\Throwable $th) {
 
             $logDoSistema = $th->getMessage();
             $this->cifraOriginal->setSinal('INVALIDO');
 
-        }
+        }*/
     }
 
     public function get():string
